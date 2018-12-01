@@ -1,0 +1,42 @@
+{
+  "title": "CSVx.js",
+  "menu" : {
+    "menu"          : "Menu",
+    "home"          : "Home",
+    "about"         : "About",
+    "example"       : "Example",
+    "code"          : "Code",
+    "download"      : "Download",
+    "documentation" : "Documentation",
+    "contact"       : "Contact"
+  },
+  "section" : {
+    "home" : {
+      "h1" : "CSVx.js",
+      "description" : "Is an open source CSV Export library written in TypeScript."
+    },
+    "about" : {
+      "h2" : "About",
+      "text" : "<p>The purpose of this library is to provide an easy way to export your data as CSV.<p> You can help develop CSVx.js on <a href=\"https://github.com/LCluber/CSVx.js\" target=\"_blank\">Github</a>.</p>"
+    },
+    "code" : {
+      "h2" : "Code",
+      "h3" : "Javascript (main.js)",
+      "p1" : "Instantiate a Keyboard class and creates input listeners."
+    },
+    "download" : {
+      "h2" : "Download CSVx.js",
+      "min" : "Standalone IIFE",
+      "npm" : "Install with ",
+      "zip" : "CSVxjs.zip",
+      "github" : "Clone from Github "
+    },
+    "contact" : {
+      "h2" : "Contact me",
+      "description" : "Feel free to ask me about my work, give me suggestions, or just to say hi.",
+      "website" : "lcluber.com"
+    }
+  },
+  "github":" Github",
+  "twitter":"Twitter"
+}

@@ -1,0 +1,12 @@
+version: '3.5'
+services:
+  weejs:
+    container_name: weejs
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - '.:/usr/src/app'
+      - '/usr/src/app/node_modules'
+    ports:
+      - '3011:3011'
