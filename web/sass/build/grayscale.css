@@ -38,7 +38,8 @@ a {
     color: #d6ad33; }
 
 pre {
-  margin-bottom: 40px; }
+  margin-bottom: 40px;
+  text-align: left; }
 
 img::selection {
   background: transparent; }

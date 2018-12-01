@@ -22,7 +22,7 @@
     "code" : {
       "h2" : "Code",
       "h3" : "Javascript (main.js)",
-      "p1" : "Instantiate a Keyboard class and creates input listeners."
+      "p1" : "Create a button to export a CSV."
     },
     "download" : {
       "h2" : "Download CSVx.js",
