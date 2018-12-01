@@ -12,11 +12,11 @@ export class Export {
     separator: ',',
     CRLF : '\r\n'
   }
-  
-  public static fromObject( filename: string, 
+
+  public static data( filename: string, 
                             data: Array<Object>|Array<string>,
                             options?: Options): boolean {
-    
+
     if (!Check.isObject(data[0]) && !Check.isJSON(data[0])) {
       return false;
     }
@@ -31,23 +31,23 @@ export class Export {
     this.download(table, filename);
     return true;
   }
-  
+
   public static setOptions(options: Options): void {
     for(const property in options){
       if (options.hasOwnProperty(property) && this.options.hasOwnProperty(property)) {
         this.options[property] = options[property];
-      } 
+      }
     }
   }
-  
+
   private static download(table:string, filename: string): void {
     let encodedUri = encodeURI(table);
     let link = Dom.addHTMLElement(document.body, 'a', {href:encodedUri,download:filename+'.csv'})
-    
+
     link.click();
     document.body.removeChild(link);
   }
-  
+
   private static createTable( data: Array<Object>|Array<string> ): string {
     let table: string = '';
     for (const row of data) {
@@ -65,7 +65,7 @@ export class Export {
     }
     return table;
   }
-  
+
   private static createLabels( data: Array<Object>|Array<string> ): string {
     let labels:Object = Check.isJSON(data[0])||data[0];
     let parsedRow: string = '';
@@ -76,14 +76,14 @@ export class Export {
     }
     return this.createRow(parsedRow);
   }
-  
+
   private static createRow(row: string): string {
     return row + this.options.CRLF
   }
-  
+
   private static createField(content:string): string{
     return this.options.quote + content + this.options.quote + this.options.separator;
   }
-  
+
 
 }

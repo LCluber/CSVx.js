@@ -25,7 +25,7 @@
 
 export declare class Export {
     static options: Options;
-    static fromObject(filename: string, data: Array<Object> | Array<string>, options?: Options): boolean;
+    static data(filename: string, data: Array<Object> | Array<string>, options?: Options): boolean;
     static setOptions(options: Options): void;
     private static download;
     private static createTable;

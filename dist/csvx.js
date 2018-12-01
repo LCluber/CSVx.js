@@ -26,7 +26,7 @@
 import { Check, Dom } from '@lcluber/weejs';
 
 class Export {
-    static fromObject(filename, data, options) {
+    static data(filename, data, options) {
         if (!Check.isObject(data[0]) && !Check.isJSON(data[0])) {
             return false;
         }

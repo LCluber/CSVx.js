@@ -470,7 +470,7 @@ var CSVx = (function (exports) {
 
     var Export = function () {
         function Export() {}
-        Export.fromObject = function (filename, data, options) {
+        Export.data = function (filename, data, options) {
             if (!Check.isObject(data[0]) && !Check.isJSON(data[0])) {
                 return false;
             }
