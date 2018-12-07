@@ -1,5 +1,6 @@
 import { Options }  from './options';
 import { Check, Dom } from '@lcluber/weejs';
+import { Logger } from '@lcluber/mouettejs';
 
 export class Export {
 
@@ -13,9 +14,9 @@ export class Export {
     CRLF : '\r\n'
   }
 
-  public static data( filename: string, 
-                            data: Array<Object>|Array<string>,
-                            options?: Options): boolean {
+  public static data( filename: string,
+                      data: Array<Object>|Array<string>,
+                      options?: Options): boolean {
 
     if (!Check.isObject(data[0]) && !Check.isJSON(data[0])) {
       return false;
@@ -26,8 +27,10 @@ export class Export {
     let table: string = 'data:' + this.options.data + ';charset=' + this.options.charset + ',';
     if(this.options.labels) {
       table += this.createLabels(data);
+      Logger.info('[CSVx] ' + filename + ' labels ready');
     }
     table += this.createTable(data);
+    Logger.info('[CSVx] ' + filename + ' table ready');
     this.download(table, filename);
     return true;
   }
@@ -46,6 +49,7 @@ export class Export {
 
     link.click();
     document.body.removeChild(link);
+    Logger.info('[CSVx] ' + filename + ' downloading');
   }
 
   private static createTable( data: Array<Object>|Array<string> ): string {
