@@ -17,6 +17,10 @@ Or download it **[here](http://csvxjs.lcluber.com/#download)**.
 
 ### ES6
 
+```html
+<button id="csv">Export CSV</button>
+```
+
 ```javascript
 import { Export } from '@lcluber/csvxjs';
 
@@ -50,6 +54,7 @@ exportButton.addEventListener('click', function() {
 
 ```html
 <script src="node-modules/@lcluber/csvxjs/dist/csvx.iife.min.js"></script>
+<button id="csv">Export CSV</button>
 ```
 
 ```javascript
