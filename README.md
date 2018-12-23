@@ -13,6 +13,72 @@ $ npm install @lcluber/csvxjs
 ```
 Or download it **[here](http://csvxjs.lcluber.com/#download)**.
 
+## Usage
+
+### ES6
+
+```javascript
+import { Export } from '@lcluber/csvxjs';
+
+let array = [
+  {
+    firstname:'Galileo',
+    lastname:'Galilei',
+    born:1564,
+    died:1642
+  },
+  {
+    firstname:'Nikola',
+    lastname:'Tesla',
+    born:1856,
+    died:1943
+  },
+  {
+    firstname:'Albert',
+    lastname:'Einstein',
+    born:1879,
+    died:1955
+  }
+];
+let exportButton = document.getElementById('csv');
+exportButton.addEventListener('click', function() {
+  Export.data('scientists',array);
+});
+```
+
+### IIFE
+
+```html
+<script src="node-modules/@lcluber/csvxjs/dist/csvx.iife.min.js"></script>
+```
+
+```javascript
+var array = [
+  {
+    firstname:'Galileo',
+    lastname:'Galilei',
+    born:1564,
+    died:1642
+  },
+  {
+    firstname:'Nikola',
+    lastname:'Tesla',
+    born:1856,
+    died:1943
+  },
+  {
+    firstname:'Albert',
+    lastname:'Einstein',
+    born:1879,
+    died:1955
+  }
+];
+var exportButton = document.getElementById('csv');
+exportButton.addEventListener('click', function() {
+  CSVx.Export.data('scientists',array);
+});
+```
+
 ## Demo
 
 See a basic example **[here](http://csvxjs.lcluber.com/#example)**.

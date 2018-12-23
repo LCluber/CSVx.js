@@ -69,9 +69,62 @@
 				<h2 id="motivation">Motivation</h2>
 				<p>The main purpose of this library is to provide an easy way to export your data as CSV.</p>
 				<h2 id="installation">Installation</h2>
-				<pre><code class="lang-bash">$ npm install @lcluber/csvxjs
-</code></pre>
+				<pre><code class="language-bash">$ npm install @lcluber/csvxjs</code></pre>
 				<p>Or download it <strong><a href="http://csvxjs.lcluber.com/#download">here</a></strong>.</p>
+				<h2 id="usage">Usage</h2>
+				<h3 id="es6">ES6</h3>
+				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { Export } <span class="hljs-keyword">from</span> <span class="hljs-string">'@lcluber/csvxjs'</span>;
+
+<span class="hljs-keyword">let</span> array = [
+  {
+    <span class="hljs-attr">firstname</span>:<span class="hljs-string">'Galileo'</span>,
+    <span class="hljs-attr">lastname</span>:<span class="hljs-string">'Galilei'</span>,
+    <span class="hljs-attr">born</span>:<span class="hljs-number">1564</span>,
+    <span class="hljs-attr">died</span>:<span class="hljs-number">1642</span>
+  },
+  {
+    <span class="hljs-attr">firstname</span>:<span class="hljs-string">'Nikola'</span>,
+    <span class="hljs-attr">lastname</span>:<span class="hljs-string">'Tesla'</span>,
+    <span class="hljs-attr">born</span>:<span class="hljs-number">1856</span>,
+    <span class="hljs-attr">died</span>:<span class="hljs-number">1943</span>
+  },
+  {
+    <span class="hljs-attr">firstname</span>:<span class="hljs-string">'Albert'</span>,
+    <span class="hljs-attr">lastname</span>:<span class="hljs-string">'Einstein'</span>,
+    <span class="hljs-attr">born</span>:<span class="hljs-number">1879</span>,
+    <span class="hljs-attr">died</span>:<span class="hljs-number">1955</span>
+  }
+];
+<span class="hljs-keyword">let</span> exportButton = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'csv'</span>);
+exportButton.addEventListener(<span class="hljs-string">'click'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  Export.data(<span class="hljs-string">'scientists'</span>,array);
+});</code></pre>
+				<h3 id="iife">IIFE</h3>
+				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"node-modules/@lcluber/csvxjs/dist/csvx.iife.min.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+				<pre><code class="language-javascript"><span class="hljs-keyword">var</span> array = [
+  {
+    <span class="hljs-attr">firstname</span>:<span class="hljs-string">'Galileo'</span>,
+    <span class="hljs-attr">lastname</span>:<span class="hljs-string">'Galilei'</span>,
+    <span class="hljs-attr">born</span>:<span class="hljs-number">1564</span>,
+    <span class="hljs-attr">died</span>:<span class="hljs-number">1642</span>
+  },
+  {
+    <span class="hljs-attr">firstname</span>:<span class="hljs-string">'Nikola'</span>,
+    <span class="hljs-attr">lastname</span>:<span class="hljs-string">'Tesla'</span>,
+    <span class="hljs-attr">born</span>:<span class="hljs-number">1856</span>,
+    <span class="hljs-attr">died</span>:<span class="hljs-number">1943</span>
+  },
+  {
+    <span class="hljs-attr">firstname</span>:<span class="hljs-string">'Albert'</span>,
+    <span class="hljs-attr">lastname</span>:<span class="hljs-string">'Einstein'</span>,
+    <span class="hljs-attr">born</span>:<span class="hljs-number">1879</span>,
+    <span class="hljs-attr">died</span>:<span class="hljs-number">1955</span>
+  }
+];
+<span class="hljs-keyword">var</span> exportButton = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'csv'</span>);
+exportButton.addEventListener(<span class="hljs-string">'click'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  CSVx.Export.data(<span class="hljs-string">'scientists'</span>,array);
+});</code></pre>
 				<h2 id="demo">Demo</h2>
 				<p>See a basic example <strong><a href="http://csvxjs.lcluber.com/#example">here</a></strong>.</p>
 				<h2 id="api-reference">API Reference</h2>

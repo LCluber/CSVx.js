@@ -14,7 +14,6 @@ module.exports = function(grunt){
 
   var srcDir          = 'src/';
   var compiledSrcDir  = srcDir + 'ts/build/';
-  var compiledES5Dir  = compiledSrcDir + 'es5/';
   var compiledES6Dir  = compiledSrcDir + 'es6/';
   var distDir         = 'dist/';
   var webDir          = 'web/';
@@ -54,7 +53,6 @@ module.exports = function(grunt){
     clean: {
       lib:{
         src: [  distDir + '*',
-                compiledES5Dir + '*',
                 compiledES6Dir + '*'
               ]
       },
@@ -149,10 +147,6 @@ module.exports = function(grunt){
       es6: {
         tsconfig: 'tsconfig.json',
         src: [ srcDir + 'ts/**/*.ts', '!node_modules/**/*.ts' ]
-      },
-      es5: {
-        tsconfig: 'tsconfig.es5.json',
-        src: [ srcDir + 'ts/**/*.ts', '!node_modules/**/*.ts' ]
       }
     },
     rollup: {
@@ -163,12 +157,12 @@ module.exports = function(grunt){
           banner: banner,
           // sourceMap: 'inline'
           plugins: [
-            resolve({
-            //   //exclude: './node_modules/**'
-            })
+
           ],
           external: [
-            '@lcluber/weejs'
+            '@lcluber/weejs',
+            '@lcluber/mouettejs',
+            '@lcluber/chjs'
           ]
         },
         files: [ {
@@ -192,7 +186,7 @@ module.exports = function(grunt){
           // sourceMap: 'inline'
         },
         files: [ {
-          src : compiledES5Dir + projectNameLC + '.js',
+          src : compiledES6Dir + projectNameLC + '.js',
           dest : distDir + projectNameLC + '.iife.js'
         } ]
       }
@@ -308,7 +302,7 @@ module.exports = function(grunt){
         // /// <reference path="../config/typings/index.d.ts" />
         patterns: [ /import.*';/g,
                     /export { .* } from '.*';/g,
-                    /\/\/\/ <reference path=.*\/>/g
+                    // /\/\/\/ <reference path=.*\/>/g
                   ]
       },
       declaration: {
@@ -399,7 +393,7 @@ module.exports = function(grunt){
                         'ts:es6',
                         'rollup:es6',
                         //lib es5
-                        'ts:es5',
+                        //'ts:es5',
                         'rollup:iife',
                         'uglify:libIife',
                         //declaration

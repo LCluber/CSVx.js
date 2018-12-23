@@ -1,5 +1,6 @@
 import { Options }  from './options';
-import { Check, Dom } from '@lcluber/weejs';
+import { Dom } from '@lcluber/weejs';
+import { Is } from '@lcluber/chjs';
 import { Logger } from '@lcluber/mouettejs';
 
 export class Export {
@@ -18,7 +19,7 @@ export class Export {
                       data: Array<Object>|Array<string>,
                       options?: Options): boolean {
 
-    if (!Check.isObject(data[0]) && !Check.isJSON(data[0])) {
+    if (!Is.object(data[0]) && !Is.json(data[0])) {
       return false;
     }
     if (options) {
@@ -55,8 +56,8 @@ export class Export {
   private static createTable( data: Array<Object>|Array<string> ): string {
     let table: string = '';
     for (const row of data) {
-      let obj:Object = Check.isJSON(row)||row;
-      if (!Check.isObject(obj)){
+      let obj:Object = Is.json(row)||row;
+      if (!Is.object(obj)){
         return table;
       }
       let parsedRow: string = '';
@@ -71,7 +72,7 @@ export class Export {
   }
 
   private static createLabels( data: Array<Object>|Array<string> ): string {
-    let labels:Object = Check.isJSON(data[0])||data[0];
+    let labels:Object = Is.json(data[0])||data[0];
     let parsedRow: string = '';
     for(const label in labels) {
       if (labels.hasOwnProperty(label)) {
