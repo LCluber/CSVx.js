@@ -4,7 +4,7 @@
 
 ## Motivation
 
-The main purpose of this library is to provide an easy way to export your data as CSV or transform your CSV data.
+The main purpose of this library is to provide an easy way to export your data as CSV or transform your CSV data to something else.
 
 ## Installation
 
