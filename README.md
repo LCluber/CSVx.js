@@ -25,7 +25,7 @@ Or download it **[here](http://csvxjs.lcluber.com/#download)**.
 ```javascript
 import { Export, Convert } from '@lcluber/csvxjs';
 
-// Convert an object to CSV file
+// Convert an array to CSV file
 let array = [
   {
     firstname:'Galileo',
@@ -53,7 +53,7 @@ exportButton.addEventListener('click', function() {
 });
 
 // Convert CSV data to HTML table
-var data = '"Firstname";"Lastname";"Born";"Died"\r\n\
+let data = '"Firstname";"Lastname";"Born";"Died"\r\n\
 "Galileo";"Galilei";"1564";"1642"\r\n\
 "Nikola";"Tesla";"1856";"1943"\r\n\
 "Albert";"Einstein";"1879";"1955"';
@@ -71,7 +71,7 @@ document.getElementById("table").innerHTML = Convert.table(data,{separator: ';'}
 
 ```javascript
 
-// Convert an object to CSV file
+// Convert an array to CSV file
 var array = [
   {
     firstname:'Galileo',
