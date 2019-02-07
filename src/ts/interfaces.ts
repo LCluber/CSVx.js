@@ -7,3 +7,8 @@ export interface Options {
   separator?: string;
   CRLF?: string;
 }
+
+export interface CSS {
+  table?: string;
+  th?: string;
+}

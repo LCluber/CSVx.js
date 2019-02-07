@@ -65,16 +65,19 @@
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
 				<h2 id="synopsis">Synopsis</h2>
-				<p><a href="http://csvxjs.lcluber.com">CSVx.js</a> is an open source CSV Export library written in TypeScript.</p>
+				<p><a href="http://csvxjs.lcluber.com">CSVx.js</a> is an open source CSV library written in TypeScript.</p>
 				<h2 id="motivation">Motivation</h2>
-				<p>The main purpose of this library is to provide an easy way to export your data as CSV.</p>
+				<p>The main purpose of this library is to provide an easy way to export your data as CSV or transform your CSV data.</p>
 				<h2 id="installation">Installation</h2>
 				<pre><code class="language-bash">$ npm install @lcluber/csvxjs</code></pre>
 				<p>Or download it <strong><a href="http://csvxjs.lcluber.com/#download">here</a></strong>.</p>
 				<h2 id="usage">Usage</h2>
 				<h3 id="es6">ES6</h3>
-				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { Export } <span class="hljs-keyword">from</span> <span class="hljs-string">'@lcluber/csvxjs'</span>;
+				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"csv"</span>&gt;</span>Export CSV<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"table"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { Export, Convert } <span class="hljs-keyword">from</span> <span class="hljs-string">'@lcluber/csvxjs'</span>;
 
+<span class="hljs-comment">// Convert an object to CSV file</span>
 <span class="hljs-keyword">let</span> array = [
   {
     <span class="hljs-attr">firstname</span>:<span class="hljs-string">'Galileo'</span>,
@@ -95,13 +98,26 @@
     <span class="hljs-attr">died</span>:<span class="hljs-number">1955</span>
   }
 ];
+
 <span class="hljs-keyword">let</span> exportButton = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'csv'</span>);
 exportButton.addEventListener(<span class="hljs-string">'click'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   Export.data(<span class="hljs-string">'scientists'</span>,array);
-});</code></pre>
+});
+
+<span class="hljs-comment">// Convert CSV data to HTML table</span>
+<span class="hljs-keyword">var</span> data = <span class="hljs-string">'"Firstname";"Lastname";"Born";"Died"\r\n\
+"Galileo";"Galilei";"1564";"1642"\r\n\
+"Nikola";"Tesla";"1856";"1943"\r\n\
+"Albert";"Einstein";"1879";"1955"'</span>;
+
+<span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"table"</span>).innerHTML = Convert.table(data,{<span class="hljs-attr">separator</span>: <span class="hljs-string">';'</span>}, {<span class="hljs-attr">table</span>: <span class="hljs-string">'table table-striped'</span>});</code></pre>
 				<h3 id="iife">IIFE</h3>
-				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"node-modules/@lcluber/csvxjs/dist/csvx.iife.min.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
-				<pre><code class="language-javascript"><span class="hljs-keyword">var</span> array = [
+				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"node-modules/@lcluber/csvxjs/dist/csvx.iife.min.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"csv"</span>&gt;</span>Export CSV<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"table"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+				<pre><code class="language-javascript">
+<span class="hljs-comment">// Convert an object to CSV file</span>
+<span class="hljs-keyword">var</span> array = [
   {
     <span class="hljs-attr">firstname</span>:<span class="hljs-string">'Galileo'</span>,
     <span class="hljs-attr">lastname</span>:<span class="hljs-string">'Galilei'</span>,
@@ -121,10 +137,19 @@ exportButton.addEventListener(<span class="hljs-string">'click'</span>, <span cl
     <span class="hljs-attr">died</span>:<span class="hljs-number">1955</span>
   }
 ];
+
 <span class="hljs-keyword">var</span> exportButton = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'csv'</span>);
 exportButton.addEventListener(<span class="hljs-string">'click'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
   CSVx.Export.data(<span class="hljs-string">'scientists'</span>,array);
-});</code></pre>
+});
+
+<span class="hljs-comment">// Convert CSV data to HTML table</span>
+<span class="hljs-keyword">var</span> data = <span class="hljs-string">'"Firstname";"Lastname";"Born";"Died"\r\n\
+"Galileo";"Galilei";"1564";"1642"\r\n\
+"Nikola";"Tesla";"1856";"1943"\r\n\
+"Albert";"Einstein";"1879";"1955"'</span>;
+
+<span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"table"</span>).innerHTML = CSVx.Convert.table(data,{<span class="hljs-attr">separator</span>: <span class="hljs-string">';'</span>}, {<span class="hljs-attr">table</span>: <span class="hljs-string">'table table-striped'</span>});</code></pre>
 				<h2 id="demo">Demo</h2>
 				<p>See a basic example <strong><a href="http://csvxjs.lcluber.com/#example">here</a></strong>.</p>
 				<h2 id="api-reference">API Reference</h2>
@@ -161,10 +186,16 @@ exportButton.addEventListener(<span class="hljs-string">'click'</span>, <span cl
 						<a href="globals.html"><em>Globals</em></a>
 					</li>
 					<li class=" tsd-kind-external-module">
+						<a href="modules/_convert_.html">"convert"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
 						<a href="modules/_csvx_.html">"csvx"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_options_.html">"options"</a>
+						<a href="modules/_export_.html">"export"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_interfaces_.html">"interfaces"</a>
 					</li>
 				</ul>
 			</nav>

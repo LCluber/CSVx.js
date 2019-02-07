@@ -103,4 +103,84 @@ Export.options = {
     CRLF: '\r\n'
 };
 
-export { Export };
+class Convert {
+    static setOptions(options) {
+        this.setObject('options', options);
+    }
+    static setCSS(css) {
+        this.setObject('css', css);
+    }
+    static array(data, options, css) {
+        if (options) {
+            this.setOptions(options);
+        }
+        if (css) {
+            this.setCSS(css);
+        }
+        let rows = data.split(this.options.CRLF);
+        if (!rows.length) {
+            Logger.warn('[CSVx] ' + this.options.CRLF + ' CRLF not found');
+            return false;
+        }
+        let array = [];
+        for (let row of rows) {
+            let cells = row.split(this.options.separator);
+            if (this.options.quote) {
+                for (let i = 0; i < cells.length; i++) {
+                    cells[i] = cells[i].slice(1, -1);
+                }
+            }
+            array.push(cells);
+        }
+        console.log(array);
+        return array;
+    }
+    static table(data, options, css) {
+        let array = this.array(data, options, css);
+        if (array) {
+            let thead = '';
+            let table = [];
+            for (let i = 0; i < array.length; i++) {
+                let cellType = 'td';
+                let style = '';
+                if (!i && this.options.labels) {
+                    cellType = 'th';
+                    if (this.css.th) {
+                        style = ' class = "' + this.css.th + '"';
+                    }
+                    thead = '<thead>' + this.createTr(array[i], cellType, style) + '</thead>';
+                }
+                else {
+                    table.push(this.createTr(array[i], cellType, ''));
+                }
+            }
+            if (thead || table.length) {
+                let style = this.css.table ? 'class="' + this.css.table + '"' : '';
+                return '<table ' + style + '>' + thead + '<tbody>' + table.join('') + '</tbody></table>';
+            }
+        }
+        return false;
+    }
+    static createTr(row, cellType, style) {
+        return '<tr><' + cellType + style + '>' + row.join('</' + cellType + '><' + cellType + style + '>') + '</' + cellType + '></tr>';
+    }
+    static setObject(parameterName, newObject) {
+        for (const property in newObject) {
+            if (newObject.hasOwnProperty(property) && this[parameterName].hasOwnProperty(property)) {
+                this[parameterName][property] = newObject[property];
+            }
+        }
+    }
+}
+Convert.options = {
+    labels: true,
+    quote: '"',
+    separator: ',',
+    CRLF: '\r\n'
+};
+Convert.css = {
+    table: '',
+    th: ''
+};
+
+export { Export, Convert };

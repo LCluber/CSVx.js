@@ -1,10 +1,10 @@
 ## Synopsis
 
-[CSVx.js](http://csvxjs.lcluber.com) is an open source CSV Export library written in TypeScript.
+[CSVx.js](http://csvxjs.lcluber.com) is an open source CSV library written in TypeScript.
 
 ## Motivation
 
-The main purpose of this library is to provide an easy way to export your data as CSV.
+The main purpose of this library is to provide an easy way to export your data as CSV or transform your CSV data.
 
 ## Installation
 
@@ -19,11 +19,13 @@ Or download it **[here](http://csvxjs.lcluber.com/#download)**.
 
 ```html
 <button id="csv">Export CSV</button>
+<div id="table"></div>
 ```
 
 ```javascript
-import { Export } from '@lcluber/csvxjs';
+import { Export, Convert } from '@lcluber/csvxjs';
 
+// Convert an object to CSV file
 let array = [
   {
     firstname:'Galileo',
@@ -44,10 +46,19 @@ let array = [
     died:1955
   }
 ];
+
 let exportButton = document.getElementById('csv');
 exportButton.addEventListener('click', function() {
   Export.data('scientists',array);
 });
+
+// Convert CSV data to HTML table
+var data = '"Firstname";"Lastname";"Born";"Died"\r\n\
+"Galileo";"Galilei";"1564";"1642"\r\n\
+"Nikola";"Tesla";"1856";"1943"\r\n\
+"Albert";"Einstein";"1879";"1955"';
+
+document.getElementById("table").innerHTML = Convert.table(data,{separator: ';'}, {table: 'table table-striped'});
 ```
 
 ### IIFE
@@ -55,9 +66,12 @@ exportButton.addEventListener('click', function() {
 ```html
 <script src="node-modules/@lcluber/csvxjs/dist/csvx.iife.min.js"></script>
 <button id="csv">Export CSV</button>
+<div id="table"></div>
 ```
 
 ```javascript
+
+// Convert an object to CSV file
 var array = [
   {
     firstname:'Galileo',
@@ -78,10 +92,19 @@ var array = [
     died:1955
   }
 ];
+
 var exportButton = document.getElementById('csv');
 exportButton.addEventListener('click', function() {
   CSVx.Export.data('scientists',array);
 });
+
+// Convert CSV data to HTML table
+var data = '"Firstname";"Lastname";"Born";"Died"\r\n\
+"Galileo";"Galilei";"1564";"1642"\r\n\
+"Nikola";"Tesla";"1856";"1943"\r\n\
+"Albert";"Einstein";"1879";"1955"';
+
+document.getElementById("table").innerHTML = CSVx.Convert.table(data,{separator: ';'}, {table: 'table table-striped'});
 ```
 
 ## Demo

@@ -1,3 +1,7 @@
+Version 0.1.4 (February 08th 2019)
+-----------------------------
+ * Added Convert class to transform CSV data to array or HTML table
+
 Version 0.1.3 (December 23th 2018)
 -----------------------------
  * Added Ch.js dependency

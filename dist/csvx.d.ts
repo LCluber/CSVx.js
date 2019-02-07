@@ -23,6 +23,20 @@
 * http://csvxjs.lcluber.com
 */
 
+export declare type CellTypes = 'td' | 'th';
+export declare class Convert {
+    static options: Options;
+    static css: CSS;
+    static setOptions(options: Options): void;
+    static setCSS(css: CSS): void;
+    static array(data: string, options?: Options, css?: CSS): Array<Array<string>> | false;
+    static table(data: string, options?: Options, css?: CSS): string | false;
+    private static createTr;
+    private static setObject;
+}
+
+
+
 export declare class Export {
     static options: Options;
     static data(filename: string, data: Array<Object> | Array<string>, options?: Options): boolean;
@@ -40,4 +54,8 @@ export interface Options {
     quote?: string;
     separator?: string;
     CRLF?: string;
+}
+export interface CSS {
+    table?: string;
+    th?: string;
 }

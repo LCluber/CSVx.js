@@ -484,7 +484,126 @@ var CSVx = (function (exports) {
     CRLF: '\r\n'
   };
 
+  var Convert =
+  /*#__PURE__*/
+  function () {
+    function Convert() {}
+
+    Convert.setOptions = function setOptions(options) {
+      this.setObject('options', options);
+    };
+
+    Convert.setCSS = function setCSS(css) {
+      this.setObject('css', css);
+    };
+
+    Convert.array = function array(data, options, css) {
+      if (options) {
+        this.setOptions(options);
+      }
+
+      if (css) {
+        this.setCSS(css);
+      }
+
+      var rows = data.split(this.options.CRLF);
+
+      if (!rows.length) {
+        Logger.warn('[CSVx] ' + this.options.CRLF + ' CRLF not found');
+        return false;
+      }
+
+      var array = [];
+
+      for (var _iterator = rows, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
+        var _ref;
+
+        if (_isArray) {
+          if (_i >= _iterator.length) break;
+          _ref = _iterator[_i++];
+        } else {
+          _i = _iterator.next();
+          if (_i.done) break;
+          _ref = _i.value;
+        }
+
+        var row = _ref;
+        var cells = row.split(this.options.separator);
+
+        if (this.options.quote) {
+          for (var i = 0; i < cells.length; i++) {
+            cells[i] = cells[i].slice(1, -1);
+          }
+        }
+
+        array.push(cells);
+      }
+
+      console.log(array);
+      return array;
+    };
+
+    Convert.table = function table(data, options, css) {
+      var array = this.array(data, options, css);
+
+      if (array) {
+        var thead = '';
+        var table = [];
+
+        for (var i = 0; i < array.length; i++) {
+          var cellType = 'td';
+          var style = '';
+
+          if (!i && this.options.labels) {
+            cellType = 'th';
+
+            if (this.css.th) {
+              style = ' class = "' + this.css.th + '"';
+            }
+
+            thead = '<thead>' + this.createTr(array[i], cellType, style) + '</thead>';
+          } else {
+            table.push(this.createTr(array[i], cellType, ''));
+          }
+        }
+
+        if (thead || table.length) {
+          var _style = this.css.table ? 'class="' + this.css.table + '"' : '';
+
+          return '<table ' + _style + '>' + thead + '<tbody>' + table.join('') + '</tbody></table>';
+        }
+      }
+
+      return false;
+    };
+
+    Convert.createTr = function createTr(row, cellType, style) {
+      return '<tr><' + cellType + style + '>' + row.join('</' + cellType + '><' + cellType + style + '>') + '</' + cellType + '></tr>';
+    };
+
+    Convert.setObject = function setObject(parameterName, newObject) {
+      for (var property in newObject) {
+        if (newObject.hasOwnProperty(property) && this[parameterName].hasOwnProperty(property)) {
+          this[parameterName][property] = newObject[property];
+        }
+      }
+    };
+
+    return Convert;
+  }();
+  Convert.options = {
+    labels: true,
+    quote: '"',
+    separator: ',',
+    CRLF: '\r\n'
+  };
+  Convert.css = {
+    table: '',
+    th: ''
+  };
+
   exports.Export = Export;
+  exports.Convert = Convert;
 
   return exports;
 
