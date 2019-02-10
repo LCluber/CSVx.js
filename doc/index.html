@@ -67,7 +67,7 @@
 				<h2 id="synopsis">Synopsis</h2>
 				<p><a href="http://csvxjs.lcluber.com">CSVx.js</a> is an open source CSV library written in TypeScript.</p>
 				<h2 id="motivation">Motivation</h2>
-				<p>The main purpose of this library is to provide an easy way to export your data as CSV or transform your CSV data.</p>
+				<p>The main purpose of this library is to provide an easy way to export your data as CSV or transform your CSV data to something else.</p>
 				<h2 id="installation">Installation</h2>
 				<pre><code class="language-bash">$ npm install @lcluber/csvxjs</code></pre>
 				<p>Or download it <strong><a href="http://csvxjs.lcluber.com/#download">here</a></strong>.</p>
@@ -77,7 +77,7 @@
 <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"table"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
 				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { Export, Convert } <span class="hljs-keyword">from</span> <span class="hljs-string">'@lcluber/csvxjs'</span>;
 
-<span class="hljs-comment">// Convert an object to CSV file</span>
+<span class="hljs-comment">// Convert an array to CSV file</span>
 <span class="hljs-keyword">let</span> array = [
   {
     <span class="hljs-attr">firstname</span>:<span class="hljs-string">'Galileo'</span>,
@@ -105,7 +105,7 @@ exportButton.addEventListener(<span class="hljs-string">'click'</span>, <span cl
 });
 
 <span class="hljs-comment">// Convert CSV data to HTML table</span>
-<span class="hljs-keyword">var</span> data = <span class="hljs-string">'"Firstname";"Lastname";"Born";"Died"\r\n\
+<span class="hljs-keyword">let</span> data = <span class="hljs-string">'"Firstname";"Lastname";"Born";"Died"\r\n\
 "Galileo";"Galilei";"1564";"1642"\r\n\
 "Nikola";"Tesla";"1856";"1943"\r\n\
 "Albert";"Einstein";"1879";"1955"'</span>;
@@ -116,7 +116,7 @@ exportButton.addEventListener(<span class="hljs-string">'click'</span>, <span cl
 <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"csv"</span>&gt;</span>Export CSV<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"table"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
 				<pre><code class="language-javascript">
-<span class="hljs-comment">// Convert an object to CSV file</span>
+<span class="hljs-comment">// Convert an array to CSV file</span>
 <span class="hljs-keyword">var</span> array = [
   {
     <span class="hljs-attr">firstname</span>:<span class="hljs-string">'Galileo'</span>,

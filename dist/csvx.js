@@ -132,7 +132,6 @@ class Convert {
             }
             array.push(cells);
         }
-        console.log(array);
         return array;
     }
     static table(data, options, css) {

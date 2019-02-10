@@ -6,7 +6,7 @@ import { Logger } from '@lcluber/mouettejs';
 export type CellTypes = 'td'|'th';
 
 export class Convert {
-  
+
   // static html: string = null;
   // default option values
   static options: Options = {
@@ -17,7 +17,7 @@ export class Convert {
     separator: ',',
     CRLF : '\r\n'
   }
-  
+
   static css: CSS = {
     table: '',
     th: ''
@@ -26,7 +26,7 @@ export class Convert {
   public static setOptions(options: Options): void {
     this.setObject('options', options);
   }
-  
+
   public static setCSS(css: CSS): void {
     this.setObject('css', css);
   }
@@ -35,19 +35,19 @@ export class Convert {
     if (options) {
       this.setOptions(options);
     }
-    
+
     if (css) {
       this.setCSS(css);
     }
-    
+
     let rows:Array<string> = data.split(this.options.CRLF);
     if (!rows.length) {
       Logger.warn('[CSVx] ' + this.options.CRLF + ' CRLF not found');
       return false;
     }
-    
+
     let array:Array<Array<string>> = [];
-    
+
     for (let row of rows) {
       let cells:Array<string> = row.split(this.options.separator);
       if (this.options.quote) {
@@ -57,14 +57,13 @@ export class Convert {
       }
       array.push(cells);
     }
-    console.log(array);
     return array;
   }
 
   public static table( data: string, options?: Options, css?: CSS): string|false {
-    
+
     let array = this.array( data, options, css);
-    
+
     if (array) {
       let thead:string = '';
       let table: Array<string> = [];
@@ -81,7 +80,7 @@ export class Convert {
           table.push(this.createTr(array[i], cellType, ''));
         }
       }
-    
+
       if(thead || table.length) {
         let style = this.css.table ? 'class="'+ this.css.table + '"' : '';
         return '<table ' + style +'>' + thead + '<tbody>' + table.join('') + '</tbody></table>';
@@ -89,11 +88,11 @@ export class Convert {
     }
     return false;
   }
-  
+
   private static createTr(row: Array<string>, cellType: CellTypes, style: string): string {
     return '<tr><' + cellType + style + '>' + row.join('</' + cellType + '><' + cellType + style + '>') + '</' + cellType + '></tr>';
   }
-  
+
   private static setObject(parameterName: string, newObject: Options|CSS): void {
     for (const property in newObject) {
       if (newObject.hasOwnProperty(property) && this[parameterName].hasOwnProperty(property)) {

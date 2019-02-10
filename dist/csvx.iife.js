@@ -539,7 +539,6 @@ var CSVx = (function (exports) {
         array.push(cells);
       }
 
-      console.log(array);
       return array;
     };
 
