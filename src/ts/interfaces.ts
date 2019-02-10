@@ -6,6 +6,7 @@ export interface Options {
   quote?: string;
   separator?: string;
   CRLF?: string;
+  customLabels?: string[];
 }
 
 export interface CSS {

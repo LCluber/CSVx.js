@@ -12,7 +12,8 @@ export class Export {
     labels: true,
     quote: '"',
     separator: ',',
-    CRLF : '\r\n'
+    CRLF : '\r\n',
+    customLabels: []
   }
 
   public static data( filename: string,
@@ -27,7 +28,11 @@ export class Export {
     }
     let table: string = 'data:' + this.options.data + ';charset=' + this.options.charset + ',';
     if(this.options.labels) {
-      table += this.createLabels(data);
+      if (this.options.customLabels.length > 0) {
+        table += this.createCustomLabels(this.options.customLabels);
+      } else {
+        table += this.createLabels(data);
+      }
       Logger.info('[CSVx] ' + filename + ' labels ready');
     }
     table += this.createTable(data);
@@ -82,12 +87,22 @@ export class Export {
     return this.createRow(parsedRow);
   }
 
+  private static createCustomLabels(customLabels: Array<string>): string {
+    let parsedRow: string = '';
+    for(const label of customLabels) {
+      parsedRow += this.createField(label);
+    }
+    return this.createRow(parsedRow);
+  }
+
   private static createRow(row: string): string {
     return row + this.options.CRLF;
   }
 
   private static createField(content:string): string {
-    return this.options.quote + content + this.options.quote + this.options.separator;
+    const rgx = new RegExp(this.options.separator, 'g');
+    const sanitizedContent = content.toString().replace(rgx, '');
+    return this.options.quote + sanitizedContent + this.options.quote + this.options.separator;
   }
 
 
