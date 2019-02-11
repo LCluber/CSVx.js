@@ -37,7 +37,12 @@ class Export {
         }
         let table = 'data:' + this.options.data + ';charset=' + this.options.charset + ',';
         if (this.options.labels) {
-            table += this.createLabels(data);
+            if (this.options.customLabels.length > 0) {
+                table += this.createCustomLabels(this.options.customLabels);
+            }
+            else {
+                table += this.createLabels(data);
+            }
             Logger.info('[CSVx] ' + filename + ' labels ready');
         }
         table += this.createTable(data);
@@ -86,6 +91,13 @@ class Export {
         }
         return this.createRow(parsedRow);
     }
+    static createCustomLabels(customLabels) {
+        let parsedRow = '';
+        for (const label of customLabels) {
+            parsedRow += this.createField(label);
+        }
+        return this.createRow(parsedRow);
+    }
     static createRow(row) {
         return row.slice(0, -1) + this.options.CRLF;
     }
@@ -99,7 +111,8 @@ Export.options = {
     labels: true,
     quote: '"',
     separator: ',',
-    CRLF: '\r\n'
+    CRLF: '\r\n',
+    customLabels: []
 };
 
 class Convert {

@@ -386,7 +386,12 @@ var CSVx = (function (exports) {
       var table = 'data:' + this.options.data + ';charset=' + this.options.charset + ',';
 
       if (this.options.labels) {
-        table += this.createLabels(_data);
+        if (this.options.customLabels.length > 0) {
+          table += this.createCustomLabels(this.options.customLabels);
+        } else {
+          table += this.createLabels(_data);
+        }
+
         Logger.info('[CSVx] ' + filename + ' labels ready');
       }
 
@@ -464,6 +469,28 @@ var CSVx = (function (exports) {
       return this.createRow(parsedRow);
     };
 
+    Export.createCustomLabels = function createCustomLabels(customLabels) {
+      var parsedRow = '';
+
+      for (var _iterator2 = customLabels, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : _iterator2[Symbol.iterator]();;) {
+        var _ref2;
+
+        if (_isArray2) {
+          if (_i2 >= _iterator2.length) break;
+          _ref2 = _iterator2[_i2++];
+        } else {
+          _i2 = _iterator2.next();
+          if (_i2.done) break;
+          _ref2 = _i2.value;
+        }
+
+        var label = _ref2;
+        parsedRow += this.createField(label);
+      }
+
+      return this.createRow(parsedRow);
+    };
+
     Export.createRow = function createRow(row) {
       return row.slice(0, -1) + this.options.CRLF;
     };
@@ -480,7 +507,8 @@ var CSVx = (function (exports) {
     labels: true,
     quote: '"',
     separator: ',',
-    CRLF: '\r\n'
+    CRLF: '\r\n',
+    customLabels: []
   };
 
   var Convert =

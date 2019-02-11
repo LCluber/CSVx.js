@@ -44,6 +44,7 @@ export declare class Export {
     private static download;
     private static createTable;
     private static createLabels;
+    private static createCustomLabels;
     private static createRow;
     private static createField;
 }
@@ -54,6 +55,7 @@ export interface Options {
     quote?: string;
     separator?: string;
     CRLF?: string;
+    customLabels?: string[];
 }
 export interface CSS {
     table?: string;
