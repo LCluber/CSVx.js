@@ -1,7 +1,8 @@
 Version 0.1.5 (February 11th 2019)
 -----------------------------
+ * Added custom labels option
  * array() method of Convert class deletes empty strings
- 
+
 Version 0.1.4 (February 08th 2019)
 -----------------------------
  * Added Convert class to transform CSV data to array or HTML table
