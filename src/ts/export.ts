@@ -100,10 +100,7 @@ export class Export {
   }
 
   private static createField(content:string): string {
-    const rgx = new RegExp(this.options.separator, 'g');
-    const sanitizedContent = content.toString().replace(rgx, '');
-    return this.options.quote + sanitizedContent + this.options.quote + this.options.separator;
+    return this.options.quote + content + this.options.quote + this.options.separator;
   }
-
 
 }
