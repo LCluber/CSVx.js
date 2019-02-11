@@ -21,11 +21,11 @@ var array = [
 ];
 var exportButton = Wee.Dom.findById('csv');
 exportButton.addEventListener('click', function() {
-  CSVx.Export.data('scientists',array);
+  CSVx.Export.data('scientists',array, {separator:';'});
 });
 
 var data = '"Firstname";"Lastname";"Born";"Died"\r\n\
 "Galileo";"Galilei";"1564";"1642"\r\n\
 "Nikola";"Tesla";"1856";"1943"\r\n\
-"Albert";"Einstein";"1879";"1955"';
+"Albert";"Einstein";"1879";"1955"\r\n\ ';
  document.getElementById("table").innerHTML = CSVx.Convert.table(data,{separator: ';'}, {table: 'table table-striped'});

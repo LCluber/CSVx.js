@@ -73,7 +73,6 @@ class Export {
                 }
             }
             table += this.createRow(parsedRow);
-            
         }
         return table;
     }
@@ -88,7 +87,7 @@ class Export {
         return this.createRow(parsedRow);
     }
     static createRow(row) {
-        return row + this.options.CRLF;
+        return row.slice(0, -1) + this.options.CRLF;
     }
     static createField(content) {
         return this.options.quote + content + this.options.quote + this.options.separator;
@@ -117,7 +116,7 @@ class Convert {
         if (css) {
             this.setCSS(css);
         }
-        let rows = data.split(this.options.CRLF);
+        let rows = data.trim().split(this.options.CRLF).filter(Boolean);
         if (!rows.length) {
             Logger.warn('[CSVx] ' + this.options.CRLF + ' CRLF not found');
             return false;

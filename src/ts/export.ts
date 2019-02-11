@@ -66,7 +66,7 @@ export class Export {
           parsedRow += this.createField(obj[property]);
         }
       }
-      table += this.createRow(parsedRow);;
+      table += this.createRow(parsedRow);
     }
     return table;
   }
@@ -83,7 +83,7 @@ export class Export {
   }
 
   private static createRow(row: string): string {
-    return row + this.options.CRLF;
+    return row.slice(0, -1) + this.options.CRLF;
   }
 
   private static createField(content:string): string {

@@ -446,7 +446,6 @@ var CSVx = (function (exports) {
         }
 
         table += this.createRow(parsedRow);
-        
       }
 
       return table;
@@ -466,7 +465,7 @@ var CSVx = (function (exports) {
     };
 
     Export.createRow = function createRow(row) {
-      return row + this.options.CRLF;
+      return row.slice(0, -1) + this.options.CRLF;
     };
 
     Export.createField = function createField(content) {
@@ -506,7 +505,7 @@ var CSVx = (function (exports) {
         this.setCSS(css);
       }
 
-      var rows = data.split(this.options.CRLF);
+      var rows = data.trim().split(this.options.CRLF).filter(Boolean);
 
       if (!rows.length) {
         Logger.warn('[CSVx] ' + this.options.CRLF + ' CRLF not found');

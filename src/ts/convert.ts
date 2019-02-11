@@ -40,7 +40,7 @@ export class Convert {
       this.setCSS(css);
     }
 
-    let rows:Array<string> = data.split(this.options.CRLF);
+    let rows:Array<string> = data.trim().split(this.options.CRLF).filter(Boolean);
     if (!rows.length) {
       Logger.warn('[CSVx] ' + this.options.CRLF + ' CRLF not found');
       return false;
