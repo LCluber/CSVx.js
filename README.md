@@ -49,7 +49,7 @@ let array = [
 
 let exportButton = document.getElementById('csv');
 exportButton.addEventListener('click', function() {
-  Export.data('scientists',array);
+  Export.data('scientists',array,{separator: ';'});// ; separator for excel friendly imports
 });
 
 // Convert CSV data to HTML table
@@ -95,7 +95,7 @@ var array = [
 
 var exportButton = document.getElementById('csv');
 exportButton.addEventListener('click', function() {
-  CSVx.Export.data('scientists',array);
+  CSVx.Export.data('scientists',array,{separator: ';'});// ; separator for excel friendly imports
 });
 
 // Convert CSV data to HTML table
