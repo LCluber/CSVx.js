@@ -111,18 +111,18 @@ document.getElementById("table").innerHTML = CSVx.Convert.table(data,{separator:
 
 ```javascript
 interface Options {
-  data?: string;
-  charset?: string;
-  labels?: boolean;
-  quote?: string;
-  separator?: string;
-  CRLF?: string;
-  customLabels?: string[];
+  data?: string; // default : 'text/csv'
+  charset?: string; // default : 'utf-8'
+  labels?: boolean; // default : true
+  quote?: string; // default : '"'
+  separator?: string; // default : ','
+  CRLF?: string; // default : '\r\n'
+  customLabels?: string[]; // default : []
 }
 
 interface CSS {
-  table?: string;
-  th?: string;
+  table?: string; // default : ''
+  th?: string; // default : ''
 }
 ```
 
