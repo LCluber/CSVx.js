@@ -107,6 +107,25 @@ var data = '"Firstname";"Lastname";"Born";"Died"\r\n\
 document.getElementById("table").innerHTML = CSVx.Convert.table(data,{separator: ';'}, {table: 'table table-striped'});
 ```
 
+###Options
+
+```javascript
+interface Options {
+  data?: string;
+  charset?: string;
+  labels?: boolean;
+  quote?: string;
+  separator?: string;
+  CRLF?: string;
+  customLabels?: string[];
+}
+
+interface CSS {
+  table?: string;
+  th?: string;
+}
+```
+
 ## Demo
 
 See a basic example **[here](http://csvxjs.lcluber.com/#example)**.
