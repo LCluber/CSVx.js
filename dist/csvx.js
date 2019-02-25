@@ -29,6 +29,9 @@ import { Logger } from '@lcluber/mouettejs';
 
 class Export {
     static data(filename, data, options) {
+        if (!filename.trim().length) {
+            filename = 'export';
+        }
         if (!Is.object(data[0]) && !Is.json(data[0])) {
             return false;
         }
