@@ -20,11 +20,11 @@ export class Export {
                       data: Array<Object>|Array<string>,
                       options?: Options): boolean {
 
-    if (!filename.trim().length) {
-      filename = 'export';
-    }
     if (!Is.object(data[0]) && !Is.json(data[0])) {
       return false;
+    }
+    if (!filename.trim().length) {
+      filename = 'export';
     }
     if (options) {
       this.setOptions(options);

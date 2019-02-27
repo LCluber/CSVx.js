@@ -375,12 +375,12 @@ var CSVx = (function (exports) {
     function Export() {}
 
     Export.data = function data(filename, _data, options) {
-      if (!filename.trim().length) {
-        filename = 'export';
-      }
-
       if (!Is.object(_data[0]) && !Is.json(_data[0])) {
         return false;
+      }
+
+      if (!filename.trim().length) {
+        filename = 'export';
       }
 
       if (options) {
