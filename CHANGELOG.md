@@ -1,6 +1,6 @@
 Version 0.1.6 (March 01st 2019)
 -----------------------------
- * Default name 'export.csv' if filename parameter is empty
+ * Default name to 'export.csv' if filename parameter is empty
 
 Version 0.1.5 (February 11th 2019)
 -----------------------------

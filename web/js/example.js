@@ -21,7 +21,7 @@ var array = [
 ];
 var exportButton = Wee.Dom.findById('csv');
 exportButton.addEventListener('click', function() {
-  CSVx.Export.data('',array, {separator:';'});
+  CSVx.Export.data('scientists',array, {separator:';'});
 });
 
 var data = '"Firstname";"Lastname";"Born";"Died"\r\n\
