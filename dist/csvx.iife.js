@@ -379,6 +379,10 @@ var CSVx = (function (exports) {
         return false;
       }
 
+      if (!filename.trim().length) {
+        filename = 'export';
+      }
+
       if (options) {
         this.setOptions(options);
       }
