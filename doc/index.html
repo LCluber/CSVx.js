@@ -101,7 +101,7 @@
 
 <span class="hljs-keyword">let</span> exportButton = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'csv'</span>);
 exportButton.addEventListener(<span class="hljs-string">'click'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-  Export.data(<span class="hljs-string">'scientists'</span>,array);
+  Export.data(<span class="hljs-string">'scientists'</span>,array,{<span class="hljs-attr">separator</span>: <span class="hljs-string">';'</span>});<span class="hljs-comment">// ; separator for excel friendly imports</span>
 });
 
 <span class="hljs-comment">// Convert CSV data to HTML table</span>
@@ -140,7 +140,7 @@ exportButton.addEventListener(<span class="hljs-string">'click'</span>, <span cl
 
 <span class="hljs-keyword">var</span> exportButton = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'csv'</span>);
 exportButton.addEventListener(<span class="hljs-string">'click'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-  CSVx.Export.data(<span class="hljs-string">'scientists'</span>,array);
+  CSVx.Export.data(<span class="hljs-string">'scientists'</span>,array,{<span class="hljs-attr">separator</span>: <span class="hljs-string">';'</span>});<span class="hljs-comment">// ; separator for excel friendly imports</span>
 });
 
 <span class="hljs-comment">// Convert CSV data to HTML table</span>
@@ -150,6 +150,21 @@ exportButton.addEventListener(<span class="hljs-string">'click'</span>, <span cl
 "Albert";"Einstein";"1879";"1955"'</span>;
 
 <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"table"</span>).innerHTML = CSVx.Convert.table(data,{<span class="hljs-attr">separator</span>: <span class="hljs-string">';'</span>}, {<span class="hljs-attr">table</span>: <span class="hljs-string">'table table-striped'</span>});</code></pre>
+				<p>###Options</p>
+				<pre><code class="language-javascript">interface Options {
+  data?: string; <span class="hljs-comment">// default : 'text/csv'</span>
+  charset?: string; <span class="hljs-comment">// default : 'utf-8'</span>
+  labels?: boolean; <span class="hljs-comment">// default : true</span>
+  quote?: string; <span class="hljs-comment">// default : '"'</span>
+  separator?: string; <span class="hljs-comment">// default : ','</span>
+  CRLF?: string; <span class="hljs-comment">// default : '\r\n'</span>
+  customLabels?: string[]; <span class="hljs-comment">// default : []</span>
+}
+
+interface CSS {
+  table?: string; <span class="hljs-comment">// default : ''</span>
+  th?: string; <span class="hljs-comment">// default : ''</span>
+}</code></pre>
 				<h2 id="demo">Demo</h2>
 				<p>See a basic example <strong><a href="http://csvxjs.lcluber.com/#example">here</a></strong>.</p>
 				<h2 id="api-reference">API Reference</h2>
