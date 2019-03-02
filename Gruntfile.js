@@ -1,27 +1,28 @@
 module.exports = function(grunt){
-  var path = require('path');
-  var babel = require('rollup-plugin-babel');
-  var resolve = require('rollup-plugin-node-resolve');
-
-  require('time-grunt')(grunt);
+  const path = require('path');
+  const babel = require('rollup-plugin-babel');
+  const resolve = require('rollup-plugin-node-resolve');
   const sass = require('node-sass');
 
-  var projectName = 'CSVx';
-  var projectNameLC = projectName.toLowerCase();
+  require('time-grunt')(grunt);
 
-  var port      = 3000;
-  var host      = 'localhost';
 
-  var srcDir          = 'src/';
-  var compiledSrcDir  = srcDir + 'ts/build/';
-  var compiledES6Dir  = compiledSrcDir + 'es6/';
-  var distDir         = 'dist/';
-  var webDir          = 'web/';
-  var publicDir       = webDir + 'public/';
-  var nodeDir         = 'node_modules/';
-  var docDir          = 'doc/';
+  const projectName = 'CSVx';
+  const projectNameLC = projectName.toLowerCase();
 
-  var banner    = '/** MIT License\n' +
+  const port      = 3000;
+  const host      = 'localhost';
+
+  const srcDir          = 'src/';
+  const compiledSrcDir  = srcDir + 'ts/build/';
+  const compiledES6Dir  = compiledSrcDir + 'es6/';
+  const distDir         = 'dist/';
+  const webDir          = 'web/';
+  const publicDir       = webDir + 'public/';
+  const nodeDir         = 'node_modules/';
+  const docDir          = 'doc/';
+
+  const banner    = '/** MIT License\n' +
     '* \n' +
     '* Copyright (c) 2018 Ludovic CLUBER \n' +
     '* \n' +
@@ -140,14 +141,22 @@ module.exports = function(grunt){
       }
     },
     ts: {
-      options: {
-        fast: 'never'
-        //rootDir: srcDir + 'ts/'
-      },
       es6: {
+        options: {
+          fast: 'never'
+          //rootDir: srcDir + 'ts/'
+        },
         tsconfig: 'tsconfig.json',
         src: [ srcDir + 'ts/**/*.ts', '!node_modules/**/*.ts' ]
-      }
+      },
+      es6dev: {
+        options: {
+          fast: 'always'
+          //rootDir: srcDir + 'ts/'
+        },
+        tsconfig: 'tsconfig-dev.json',
+        src: [ srcDir + 'ts/**/*.ts', '!node_modules/**/*.ts' ]
+      },
     },
     rollup: {
       es6:{
@@ -336,7 +345,7 @@ module.exports = function(grunt){
     },
     watch: {
       lib: {
-        files: [ srcDir + 'ts/**/*.ts', '!' + srcDir + 'ts/build/*'],
+        files: [ srcDir + 'ts/**/*.ts', '!' + srcDir + 'ts/build/**/*'],
         tasks: ['lib', 'webjs']
       },
       webpug:{
@@ -402,6 +411,23 @@ module.exports = function(grunt){
                       ]
                     );
 
+  grunt.registerTask( 'lib-dev',
+                      'build the library in the dist/ folder',
+                      [ // 'tslint:lib',
+                        //'clean:lib',
+                        //lib es6
+                        'ts:es6dev',
+                        'rollup:es6',
+                        //lib es5
+                        //'ts:es5',
+                        'rollup:iife',
+                        'uglify:libIife',
+                        //declaration
+                        //'concat:declaration',
+                        //'strip_code:declaration'
+                      ]
+                    );
+
   grunt.registerTask( 'doc',
                       'Compile lib documentation',
                       [ 'clean:doc',
@@ -457,6 +483,20 @@ module.exports = function(grunt){
                         grunt.task.run('website');
                         //build documentation
                         grunt.task.run('doc');
+                        // launch server and watch for changes
+                        grunt.task.run('serve');
+                      }
+                    );
+
+  grunt.registerTask( 'build-dev',
+                      'build for developpment',
+                      function() {
+                        //build lib
+                        grunt.task.run('lib-dev');
+                        //build site
+                        grunt.task.run('website');
+                        //build documentation
+                        //grunt.task.run('doc');
                         // launch server and watch for changes
                         grunt.task.run('serve');
                       }
