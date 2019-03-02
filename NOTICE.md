@@ -2,7 +2,7 @@
 
 You just cloned CSVx.js : git clone https://github.com/LCluber/CSVx.js.git
 
-### Install nodejs on your server :
+### Install nodejs :
   - Windows and OSX : **https://nodejs.org/en/**
   - Linux : run
     - **curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -**
@@ -23,8 +23,9 @@ You just cloned CSVx.js : git clone https://github.com/LCluber/CSVx.js.git
 
 
 ### Workflow
-  - Run **grunt** to serve the website. (http://localhost:3000/)
-  - Run **grunt build** to build the library and serve the website.
+  - Run **grunt** to serve the website and start develop. (http://localhost:3000/)
+  - Run **grunt build** to build the library in development mode and serve the website.
+  - Run **grunt build** to build the library in production mode and serve the website.
   - Use **grunt --help** to see the list of tasks.
 
   - Set node environment if needed :

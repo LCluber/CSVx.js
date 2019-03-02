@@ -85,12 +85,12 @@ module.exports = function(grunt){
   			src: [srcDir + 'ts/*.ts']
   		}
   	},
-    jshint: {
-      options: {
-        multistr: true
-      },
-      web: [ webDir + 'js/**/*.js']
-    },
+    // jshint: {
+    //   options: {
+    //     multistr: true
+    //   },
+    //   web: [ webDir + 'js/**/*.js']
+    // },
     sass: {
       options: {
         implementation: sass,
@@ -151,7 +151,7 @@ module.exports = function(grunt){
       },
       es6dev: {
         options: {
-          fast: 'always'
+          // fast: 'always'
           //rootDir: srcDir + 'ts/'
         },
         tsconfig: 'tsconfig-dev.json',
@@ -223,7 +223,7 @@ module.exports = function(grunt){
             if_return:true,
             join_vars:true,
             warnings: true,
-            drop_console: true,
+            drop_console: false,
             keep_fargs: false,
             keep_fnames: false
           }
@@ -261,7 +261,7 @@ module.exports = function(grunt){
         files: [{
           src  : [
             nodeDir + 'jquery-easing/jquery.easing.1.3.js',
-            distDir + projectNameLC + '.iife.js',
+            //distDir + projectNameLC + '.iife.js',
             webDir + 'js/*.js'
           ],
           dest : publicDir + 'js/main.min.js'
@@ -346,7 +346,7 @@ module.exports = function(grunt){
     watch: {
       lib: {
         files: [ srcDir + 'ts/**/*.ts', '!' + srcDir + 'ts/build/**/*'],
-        tasks: ['lib', 'webjs']
+        tasks: ['lib-dev']
       },
       webpug:{
         files: webDir + 'views/**/*.pug'
@@ -413,18 +413,10 @@ module.exports = function(grunt){
 
   grunt.registerTask( 'lib-dev',
                       'build the library in the dist/ folder',
-                      [ // 'tslint:lib',
-                        //'clean:lib',
-                        //lib es6
-                        'ts:es6dev',
+                      [ 'ts:es6dev',
                         'rollup:es6',
-                        //lib es5
-                        //'ts:es5',
                         'rollup:iife',
-                        'uglify:libIife',
-                        //declaration
-                        //'concat:declaration',
-                        //'strip_code:declaration'
+                        'uglify:libIife'
                       ]
                     );
 
@@ -451,7 +443,7 @@ module.exports = function(grunt){
 
   grunt.registerTask( 'webjs',
                       'Compile website js',
-                      [ 'jshint:web',
+                      [ //'jshint:web',
                         'clean:webjs',
                         'uglify:web',
                         'concat:webjs'
@@ -474,7 +466,7 @@ module.exports = function(grunt){
                       }
                     );
 
-  grunt.registerTask( 'build',
+  grunt.registerTask( 'buildprod',
                       'build for production',
                       function() {
                         //build lib
@@ -488,7 +480,7 @@ module.exports = function(grunt){
                       }
                     );
 
-  grunt.registerTask( 'build-dev',
+  grunt.registerTask( 'build',
                       'build for developpment',
                       function() {
                         //build lib

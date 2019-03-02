@@ -51,7 +51,7 @@ app.use(cookieParser());
 
 app.use('/', express.static( path.join( __dirname, 'public')));
 app.use('/dist',   express.static( path.join( __dirname, '../dist')));
-app.use('/zip',    express.static( path.join( __dirname, '../zip')));
+//app.use('/zip',    express.static( path.join( __dirname, '../zip')));
 
 app.use(i18nMiddleware.handle(i18n, {
   //ignoreRoutes: ["/foo"],

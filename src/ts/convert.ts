@@ -63,7 +63,6 @@ export class Convert {
   public static table( data: string, options?: Options, css?: CSS): string|false {
 
     let array = this.array( data, options, css);
-
     if (array) {
       let thead:string = '';
       let table: Array<string> = [];
