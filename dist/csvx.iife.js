@@ -387,7 +387,7 @@ var CSVx = (function (exports) {
         this.setOptions(options);
       }
 
-      var table = 'data:' + this.options.data + ';charset=' + this.options.charset + ',';
+      var table = 'data:' + this.options.data + ';charset=' + this.options.charset + ",\uFEFF";
 
       if (this.options.labels) {
         if (this.options.customLabels.length > 0) {
@@ -504,7 +504,8 @@ var CSVx = (function (exports) {
     };
 
     return Export;
-  }();
+  }(); // default option values
+
   Export.options = {
     data: 'text/csv',
     charset: 'utf-8',
@@ -515,6 +516,8 @@ var CSVx = (function (exports) {
     customLabels: []
   };
 
+  // import { Dom } from '@lcluber/weejs';
+  // import { Is } from '@lcluber/chjs';
   var Convert =
   /*#__PURE__*/
   function () {
@@ -620,8 +623,12 @@ var CSVx = (function (exports) {
     };
 
     return Convert;
-  }();
+  }(); // static html: string = null;
+  // default option values
+
   Convert.options = {
+    // data: 'text/csv',
+    // charset: 'utf-8',
     labels: true,
     quote: '"',
     separator: ',',

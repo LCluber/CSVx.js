@@ -29,7 +29,7 @@ export class Export {
     if (options) {
       this.setOptions(options);
     }
-    let table: string = 'data:' + this.options.data + ';charset=' + this.options.charset + ',';
+    let table: string = 'data:' + this.options.data + ';charset=' + this.options.charset + ',\uFEFF';
     if(this.options.labels) {
       if (this.options.customLabels.length > 0) {
         table += this.createCustomLabels(this.options.customLabels);
