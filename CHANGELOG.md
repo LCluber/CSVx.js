@@ -1,3 +1,7 @@
+Version 0.1.7 (March 13th 2019)
+-----------------------------
+ * Added byte order mark U+FEFF at the beginning of the data stream 
+
 Version 0.1.6 (March 01st 2019)
 -----------------------------
  * Default name to 'export.csv' if filename parameter is empty

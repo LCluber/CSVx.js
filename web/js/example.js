@@ -2,7 +2,7 @@
 var array = [
   {
     firstname:'Galileo',
-    lastname:'Galilei',
+    lastname:'Galiléi',
     born:1564,
     died:1642
   },

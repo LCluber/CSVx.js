@@ -38,7 +38,7 @@ class Export {
         if (options) {
             this.setOptions(options);
         }
-        let table = 'data:' + this.options.data + ';charset=' + this.options.charset + ',';
+        let table = 'data:' + this.options.data + ';charset=' + this.options.charset + ',\uFEFF';
         if (this.options.labels) {
             if (this.options.customLabels.length > 0) {
                 table += this.createCustomLabels(this.options.customLabels);
@@ -108,6 +108,7 @@ class Export {
         return this.options.quote + content + this.options.quote + this.options.separator;
     }
 }
+// default option values
 Export.options = {
     data: 'text/csv',
     charset: 'utf-8',
@@ -118,6 +119,8 @@ Export.options = {
     customLabels: []
 };
 
+// import { Dom } from '@lcluber/weejs';
+// import { Is } from '@lcluber/chjs';
 class Convert {
     static setOptions(options) {
         this.setObject('options', options);
@@ -186,7 +189,11 @@ class Convert {
         }
     }
 }
+// static html: string = null;
+// default option values
 Convert.options = {
+    // data: 'text/csv',
+    // charset: 'utf-8',
     labels: true,
     quote: '"',
     separator: ',',

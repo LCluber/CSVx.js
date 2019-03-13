@@ -1,6 +1,6 @@
 {
   "name": "@lcluber/csvxjs",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "CSV Export library written in TypeScript.",
   "keywords": [],
   "homepage": "http://csvxjs.lcluber.com",
