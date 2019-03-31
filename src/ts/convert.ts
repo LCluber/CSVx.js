@@ -1,6 +1,4 @@
 import { Options, CSS }  from './interfaces';
-// import { Dom } from '@lcluber/weejs';
-// import { Is } from '@lcluber/chjs';
 import { Logger } from '@lcluber/mouettejs';
 
 export type CellTypes = 'td'|'th';
@@ -9,7 +7,7 @@ export class Convert {
 
   // static html: string = null;
   // default option values
-  static options: Options = {
+  static options: Partial<Options> = {
     // data: 'text/csv',
     // charset: 'utf-8',
     labels: true,
@@ -23,15 +21,15 @@ export class Convert {
     th: ''
   }
 
-  public static setOptions(options: Options): void {
+  public static setOptions(options: Partial<Options>): void {
     this.setObject('options', options);
   }
 
-  public static setCSS(css: CSS): void {
+  public static setCSS(css: Partial<CSS>): void {
     this.setObject('css', css);
   }
 
-  public static array( data: string, options?: Options, css?: CSS): Array<Array<string>>|false  {
+  public static array( data: string, options?: Partial<Options>, css?: Partial<CSS>): Array<Array<string>>|false  {
     if (options) {
       this.setOptions(options);
     }
@@ -40,7 +38,7 @@ export class Convert {
       this.setCSS(css);
     }
 
-    let rows:Array<string> = data.trim().split(this.options.CRLF).filter(Boolean);
+    let rows:Array<string> = data.trim().split(<string>this.options.CRLF).filter(Boolean);
     if (!rows.length) {
       Logger.warn('[CSVx] ' + this.options.CRLF + ' CRLF not found');
       return false;
@@ -49,7 +47,7 @@ export class Convert {
     let array:Array<Array<string>> = [];
 
     for (let row of rows) {
-      let cells:Array<string> = row.split(this.options.separator);
+      let cells:Array<string> = row.split(<string>this.options.separator);
       if (this.options.quote) {
         for (let i = 0 ; i < cells.length ; i++ ) {
           cells[i] = cells[i].slice(1,-1);
@@ -92,7 +90,7 @@ export class Convert {
     return '<tr><' + cellType + style + '>' + row.join('</' + cellType + '><' + cellType + style + '>') + '</' + cellType + '></tr>';
   }
 
-  private static setObject(parameterName: string, newObject: Options|CSS): void {
+  private static setObject(parameterName: 'options'|'css', newObject: Partial<Options|CSS>): void {
     for (const property in newObject) {
       if (newObject.hasOwnProperty(property) && this[parameterName].hasOwnProperty(property)) {
         this[parameterName][property] = newObject[property];

@@ -17,8 +17,8 @@ export class Export {
   }
 
   public static data( filename: string,
-                      data: Array<Object>|Array<string>,
-                      options?: Options): boolean {
+                      data: Object[]|string[],
+                      options?: Partial<Options>): boolean {
 
     if (!Is.object(data[0]) && !Is.json(data[0])) {
       return false;
@@ -44,10 +44,10 @@ export class Export {
     return true;
   }
 
-  public static setOptions(options: Options): void {
-    for(const property in options){
+  public static setOptions(options: Partial<Options>): void {
+    for(const property in options) {
       if (options.hasOwnProperty(property) && this.options.hasOwnProperty(property)) {
-        this.options[property] = options[property];
+        this.options[property] = options[property]||this.options[property];
       }
     }
   }
@@ -61,10 +61,10 @@ export class Export {
     Logger.info('[CSVx] ' + filename + ' downloading');
   }
 
-  private static createTable( data: Array<Object>|Array<string> ): string {
+  private static createTable( data: Object[]|string[] ): string {
     let table: string = '';
     for (const row of data) {
-      let obj:Object = Is.json(row)||row;
+      let obj:any = Is.json(row)||row;
       if (!Is.object(obj)){
         return table;
       }
@@ -79,7 +79,7 @@ export class Export {
     return table;
   }
 
-  private static createLabels( data: Array<Object>|Array<string> ): string {
+  private static createLabels( data: Object[]|string[] ): string {
     let labels:Object = Is.json(data[0])||data[0];
     let parsedRow: string = '';
     for(const label in labels) {
@@ -90,7 +90,7 @@ export class Export {
     return this.createRow(parsedRow);
   }
 
-  private static createCustomLabels(customLabels: Array<string>): string {
+  private static createCustomLabels(customLabels: string[]): string {
     let parsedRow: string = '';
     for(const label of customLabels) {
       parsedRow += this.createField(label);

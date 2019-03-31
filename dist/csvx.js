@@ -56,7 +56,7 @@ class Export {
     static setOptions(options) {
         for (const property in options) {
             if (options.hasOwnProperty(property) && this.options.hasOwnProperty(property)) {
-                this.options[property] = options[property];
+                this.options[property] = options[property] || this.options[property];
             }
         }
     }
@@ -119,8 +119,6 @@ Export.options = {
     customLabels: []
 };
 
-// import { Dom } from '@lcluber/weejs';
-// import { Is } from '@lcluber/chjs';
 class Convert {
     static setOptions(options) {
         this.setObject('options', options);
