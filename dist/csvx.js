@@ -46,10 +46,10 @@ class Export {
             else {
                 table += this.createLabels(data);
             }
-            Logger.info('[CSVx] ' + filename + ' labels ready');
+            this.log.info(filename + ' labels ready');
         }
-        table += this.createTable(data);
-        Logger.info('[CSVx] ' + filename + ' table ready');
+        table += encodeURIComponent(this.createTable(data));
+        this.log.info(filename + ' table ready');
         this.download(table, filename);
         return true;
     }
@@ -61,11 +61,11 @@ class Export {
         }
     }
     static download(table, filename) {
-        let encodedUri = encodeURI(table);
-        let link = Dom.addHTMLElement(document.body, 'a', { href: encodedUri, download: filename + '.csv' });
+        //let encodedUri = encodeURI(table);
+        let link = Dom.addHTMLElement(document.body, 'a', { href: table, download: filename + '.csv' });
         link.click();
         document.body.removeChild(link);
-        Logger.info('[CSVx] ' + filename + ' downloading');
+        this.log.info(filename + ' downloading');
     }
     static createTable(data) {
         let table = '';
@@ -108,6 +108,7 @@ class Export {
         return this.options.quote + content + this.options.quote + this.options.separator;
     }
 }
+Export.log = Logger.addGroup('CSVx Exporter');
 // default option values
 Export.options = {
     data: 'text/csv',
@@ -135,7 +136,7 @@ class Convert {
         }
         let rows = data.trim().split(this.options.CRLF).filter(Boolean);
         if (!rows.length) {
-            Logger.warn('[CSVx] ' + this.options.CRLF + ' CRLF not found');
+            this.log.warn(this.options.CRLF + ' CRLF not found');
             return false;
         }
         let array = [];
@@ -187,6 +188,7 @@ class Convert {
         }
     }
 }
+Convert.log = Logger.addGroup('CSVx Converter');
 // static html: string = null;
 // default option values
 Convert.options = {

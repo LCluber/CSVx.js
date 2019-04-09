@@ -1,6 +1,10 @@
+Version 0.1.9 (April 09th 2019)
+-----------------------------
+ * fixed csv export with special characters
+
 Version 0.1.8 (March 31th 2019)
 -----------------------------
- * Improved typings 
+ * Improved typings
 
 Version 0.1.7 (March 13th 2019)
 -----------------------------

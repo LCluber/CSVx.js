@@ -1,10 +1,11 @@
 import { Options }  from './interfaces';
-import { Dom } from '@lcluber/weejs';
-import { Is } from '@lcluber/chjs';
-import { Logger } from '@lcluber/mouettejs';
+import { Dom }      from '@lcluber/weejs';
+import { Is }       from '@lcluber/chjs';
+import { Logger }   from '@lcluber/mouettejs';
 
 export class Export {
 
+  static log = Logger.addGroup('CSVx Exporter');
   // default option values
   static options: Options = {
     data: 'text/csv',
@@ -36,10 +37,10 @@ export class Export {
       } else {
         table += this.createLabels(data);
       }
-      Logger.info('[CSVx] ' + filename + ' labels ready');
+      this.log.info(filename + ' labels ready');
     }
-    table += this.createTable(data);
-    Logger.info('[CSVx] ' + filename + ' table ready');
+    table += encodeURIComponent(this.createTable(data));
+    this.log.info(filename + ' table ready');
     this.download(table, filename);
     return true;
   }
@@ -53,12 +54,11 @@ export class Export {
   }
 
   private static download(table:string, filename: string): void {
-    let encodedUri = encodeURI(table);
-    let link = Dom.addHTMLElement(document.body, 'a', {href:encodedUri,download:filename+'.csv'})
-
+    //let encodedUri = encodeURI(table);
+    let link = Dom.addHTMLElement(document.body, 'a', {href:table,download:filename+'.csv'})
     link.click();
     document.body.removeChild(link);
-    Logger.info('[CSVx] ' + filename + ' downloading');
+    this.log.info(filename + ' downloading');
   }
 
   private static createTable( data: Object[]|string[] ): string {

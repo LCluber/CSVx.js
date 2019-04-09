@@ -817,6 +817,17 @@ var CSVx = (function (exports) {
     }
   };
 
+  function addZero(value) {
+    return value < 10 ? '0' + value : value;
+  }
+
+  function formatDate() {
+    var now = new Date();
+    var date = [addZero(now.getMonth() + 1), addZero(now.getDate()), now.getFullYear().toString().substr(-2)];
+    var time = [addZero(now.getHours()), addZero(now.getMinutes()), addZero(now.getSeconds())];
+    return date.join("/") + " " + time.join(":");
+  }
+
   var Message$3 =
   /*#__PURE__*/
   function () {
@@ -825,15 +836,66 @@ var CSVx = (function (exports) {
       this.name = level.name;
       this.color = level.color;
       this.content = content;
+      this.date = formatDate();
     }
 
     var _proto = Message.prototype;
 
-    _proto.display = function display() {
-      console[this.name]('%c' + this.content, 'color:' + this.color + ';');
+    _proto.display = function display(groupName) {
+      console[this.name]('%c[' + groupName + '] ' + this.date + ' : ', 'color:' + this.color + ';', this.content);
     };
 
     return Message;
+  }();
+
+  var Group =
+  /*#__PURE__*/
+  function () {
+    function Group(name) {
+      this.messages = [];
+      this.name = name;
+      this.messages = [];
+      this._level = LEVELS$3.info;
+    }
+
+    var _proto2 = Group.prototype;
+
+    _proto2.info = function info(message) {
+      this.log(LEVELS$3.info, message);
+    };
+
+    _proto2.trace = function trace(message) {
+      this.log(LEVELS$3.trace, message);
+    };
+
+    _proto2.warn = function warn(message) {
+      this.log(LEVELS$3.warn, message);
+    };
+
+    _proto2.error = function error(message) {
+      this.log(LEVELS$3.error, message);
+    };
+
+    _proto2.log = function log(level, messageContent) {
+      var message = new Message$3(level, messageContent);
+      this.messages.push(message);
+
+      if (this._level.id <= message.id) {
+        message.display(this.name);
+      }
+    };
+
+    _createClass(Group, [{
+      key: "level",
+      set: function set(name) {
+        this._level = LEVELS$3.hasOwnProperty(name) ? LEVELS$3[name] : this._level;
+      },
+      get: function get() {
+        return this._level.name;
+      }
+    }]);
+
+    return Group;
   }();
 
   var Logger$3 =
@@ -841,48 +903,64 @@ var CSVx = (function (exports) {
   function () {
     function Logger() {}
 
-    Logger.info = function info(message) {
-      Logger.log(LEVELS$3.info, message);
-    };
+    Logger.setLevel = function setLevel(name) {
+      Logger.level = LEVELS$3.hasOwnProperty(name) ? LEVELS$3[name] : Logger.level;
 
-    Logger.trace = function trace(message) {
-      Logger.log(LEVELS$3.trace, message);
-    };
+      for (var _iterator = Logger.groups, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
+        var _ref;
 
-    Logger.warn = function warn(message) {
-      Logger.log(LEVELS$3.warn, message);
-    };
+        if (_isArray) {
+          if (_i >= _iterator.length) break;
+          _ref = _iterator[_i++];
+        } else {
+          _i = _iterator.next();
+          if (_i.done) break;
+          _ref = _i.value;
+        }
 
-    Logger.error = function error(message) {
-      Logger.log(LEVELS$3.error, message);
-    };
-
-    Logger.log = function log(level, messageContent) {
-      var message = new Message$3(level, messageContent);
-      this.messages.push(message);
-      this.nbMessages++;
-
-      if (this._level.id <= message.id) {
-        message.display();
+        var group = _ref;
+        group.level = Logger.level.name;
       }
     };
 
-    _createClass(Logger, [{
-      key: "level",
-      set: function set(name) {
-        Logger._level = LEVELS$3.hasOwnProperty(name) ? LEVELS$3[name] : LEVELS$3.info;
-      },
-      get: function get() {
-        return Logger._level.name;
+    Logger.getLevel = function getLevel() {
+      return Logger.level.name;
+    };
+
+    Logger.getGroup = function getGroup(name) {
+      for (var _iterator2 = Logger.groups, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : _iterator2[Symbol.iterator]();;) {
+        var _ref2;
+
+        if (_isArray2) {
+          if (_i2 >= _iterator2.length) break;
+          _ref2 = _iterator2[_i2++];
+        } else {
+          _i2 = _iterator2.next();
+          if (_i2.done) break;
+          _ref2 = _i2.value;
+        }
+
+        var group = _ref2;
+
+        if (group.name === name) {
+          return group;
+        }
       }
-    }]);
+
+      return null;
+    };
+
+    Logger.addGroup = function addGroup(name) {
+      var group = new Group(name);
+      Logger.groups.push(group);
+      return group;
+    };
 
     return Logger;
   }();
 
-  Logger$3._level = LEVELS$3.info;
-  Logger$3.messages = [];
-  Logger$3.nbMessages = 0;
+  Logger$3.level = LEVELS$3.info;
+  Logger$3.groups = [];
 
   var Export =
   /*#__PURE__*/
@@ -911,11 +989,11 @@ var CSVx = (function (exports) {
           table += this.createLabels(_data);
         }
 
-        Logger$3.info('[CSVx] ' + filename + ' labels ready');
+        this.log.info(filename + ' labels ready');
       }
 
-      table += this.createTable(_data);
-      Logger$3.info('[CSVx] ' + filename + ' table ready');
+      table += encodeURIComponent(this.createTable(_data));
+      this.log.info(filename + ' table ready');
       this.download(table, filename);
       return true;
     };
@@ -929,14 +1007,14 @@ var CSVx = (function (exports) {
     };
 
     Export.download = function download(table, filename) {
-      var encodedUri = encodeURI(table);
+      //let encodedUri = encodeURI(table);
       var link = Dom.addHTMLElement(document.body, 'a', {
-        href: encodedUri,
+        href: table,
         download: filename + '.csv'
       });
       link.click();
       document.body.removeChild(link);
-      Logger$3.info('[CSVx] ' + filename + ' downloading');
+      this.log.info(filename + ' downloading');
     };
 
     Export.createTable = function createTable(data) {
@@ -1019,7 +1097,8 @@ var CSVx = (function (exports) {
     };
 
     return Export;
-  }(); // default option values
+  }();
+  Export.log = Logger$3.addGroup('CSVx Exporter'); // default option values
 
   Export.options = {
     data: 'text/csv',
@@ -1056,7 +1135,7 @@ var CSVx = (function (exports) {
       var rows = data.trim().split(this.options.CRLF).filter(Boolean);
 
       if (!rows.length) {
-        Logger$3.warn('[CSVx] ' + this.options.CRLF + ' CRLF not found');
+        this.log.warn(this.options.CRLF + ' CRLF not found');
         return false;
       }
 
@@ -1136,7 +1215,8 @@ var CSVx = (function (exports) {
     };
 
     return Convert;
-  }(); // static html: string = null;
+  }();
+  Convert.log = Logger$3.addGroup('CSVx Converter'); // static html: string = null;
   // default option values
 
   Convert.options = {
