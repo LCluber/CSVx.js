@@ -107,7 +107,7 @@ var data = '"Firstname";"Lastname";"Born";"Died"\r\n\
 document.getElementById("table").innerHTML = CSVx.Convert.table(data,{separator: ';'}, {table: 'table table-striped'});
 ```
 
-###Options
+### Options
 
 ```javascript
 interface Options {
