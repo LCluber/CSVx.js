@@ -972,7 +972,7 @@ var CSVx = (function (exports) {
         return false;
       }
 
-      if (!filename.trim().length) {
+      if (!filename) {
         filename = 'export';
       }
 
@@ -992,7 +992,7 @@ var CSVx = (function (exports) {
         this.log.info(filename + ' labels ready');
       }
 
-      table += encodeURIComponent(this.createTable(_data));
+      table += this.createTable(_data);
       this.log.info(filename + ' table ready');
       this.download(table, filename);
       return true;
@@ -1050,7 +1050,7 @@ var CSVx = (function (exports) {
         table += this.createRow(parsedRow);
       }
 
-      return table;
+      return encodeURIComponent(table);
     };
 
     Export.createLabels = function createLabels(data) {

@@ -24,7 +24,7 @@ export class Export {
     if (!Is.object(data[0]) && !Is.json(data[0])) {
       return false;
     }
-    if (!filename.trim().length) {
+    if (!filename) {
       filename = 'export';
     }
     if (options) {
@@ -39,7 +39,7 @@ export class Export {
       }
       this.log.info(filename + ' labels ready');
     }
-    table += encodeURIComponent(this.createTable(data));
+    table += this.createTable(data);
     this.log.info(filename + ' table ready');
     this.download(table, filename);
     return true;
@@ -76,7 +76,7 @@ export class Export {
       }
       table += this.createRow(parsedRow);
     }
-    return table;
+    return encodeURIComponent(table);
   }
 
   private static createLabels( data: Object[]|string[] ): string {

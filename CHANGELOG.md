@@ -1,3 +1,7 @@
+Version 0.1.10 (April 10th 2019)
+-----------------------------
+ * fixed csv export with better filename checking
+
 Version 0.1.9 (April 09th 2019)
 -----------------------------
  * fixed csv export with special characters
