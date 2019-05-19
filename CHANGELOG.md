@@ -1,10 +1,10 @@
 Version 0.1.10 (April 10th 2019)
 -----------------------------
- * fixed csv export with better filename checking
+ * Fixed csv export with better filename checking
 
 Version 0.1.9 (April 09th 2019)
 -----------------------------
- * fixed csv export with special characters
+ * Fixed csv export with special characters
 
 Version 0.1.8 (March 31th 2019)
 -----------------------------
