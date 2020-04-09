@@ -32,7 +32,7 @@ class Export {
         if (!Is.object(data[0]) && !Is.json(data[0])) {
             return false;
         }
-        if (!filename.trim().length) {
+        if (!filename) {
             filename = 'export';
         }
         if (options) {
@@ -46,26 +46,26 @@ class Export {
             else {
                 table += this.createLabels(data);
             }
-            Logger.info('[CSVx] ' + filename + ' labels ready');
+            this.log.info(filename + ' labels ready');
         }
         table += this.createTable(data);
-        Logger.info('[CSVx] ' + filename + ' table ready');
+        this.log.info(filename + ' table ready');
         this.download(table, filename);
         return true;
     }
     static setOptions(options) {
         for (const property in options) {
             if (options.hasOwnProperty(property) && this.options.hasOwnProperty(property)) {
-                this.options[property] = options[property];
+                this.options[property] = options[property] || this.options[property];
             }
         }
     }
     static download(table, filename) {
-        let encodedUri = encodeURI(table);
-        let link = Dom.addHTMLElement(document.body, 'a', { href: encodedUri, download: filename + '.csv' });
+        //let encodedUri = encodeURI(table);
+        let link = Dom.addHTMLElement(document.body, 'a', { href: table, download: filename + '.csv' });
         link.click();
         document.body.removeChild(link);
-        Logger.info('[CSVx] ' + filename + ' downloading');
+        this.log.info(filename + ' downloading');
     }
     static createTable(data) {
         let table = '';
@@ -82,7 +82,7 @@ class Export {
             }
             table += this.createRow(parsedRow);
         }
-        return table;
+        return encodeURIComponent(table);
     }
     static createLabels(data) {
         let labels = Is.json(data[0]) || data[0];
@@ -108,6 +108,7 @@ class Export {
         return this.options.quote + content + this.options.quote + this.options.separator;
     }
 }
+Export.log = Logger.addGroup('CSVx Exporter');
 // default option values
 Export.options = {
     data: 'text/csv',
@@ -119,8 +120,6 @@ Export.options = {
     customLabels: []
 };
 
-// import { Dom } from '@lcluber/weejs';
-// import { Is } from '@lcluber/chjs';
 class Convert {
     static setOptions(options) {
         this.setObject('options', options);
@@ -137,7 +136,7 @@ class Convert {
         }
         let rows = data.trim().split(this.options.CRLF).filter(Boolean);
         if (!rows.length) {
-            Logger.warn('[CSVx] ' + this.options.CRLF + ' CRLF not found');
+            this.log.warn(this.options.CRLF + ' CRLF not found');
             return false;
         }
         let array = [];
@@ -189,6 +188,7 @@ class Convert {
         }
     }
 }
+Convert.log = Logger.addGroup('CSVx Converter');
 // static html: string = null;
 // default option values
 Convert.options = {

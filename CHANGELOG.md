@@ -1,6 +1,18 @@
+Version 0.1.10 (April 10th 2019)
+-----------------------------
+ * Fixed csv export with better filename checking
+
+Version 0.1.9 (April 09th 2019)
+-----------------------------
+ * Fixed csv export with special characters
+
+Version 0.1.8 (March 31th 2019)
+-----------------------------
+ * Improved typings
+
 Version 0.1.7 (March 13th 2019)
 -----------------------------
- * Added byte order mark U+FEFF at the beginning of the data stream 
+ * Added byte order mark U+FEFF at the beginning of the data stream
 
 Version 0.1.6 (March 01st 2019)
 -----------------------------

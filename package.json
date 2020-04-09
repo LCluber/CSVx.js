@@ -1,6 +1,6 @@
 {
   "name": "@lcluber/csvxjs",
-  "version": "0.1.7",
+  "version": "0.1.10",
   "description": "CSV Export library written in TypeScript.",
   "keywords": [],
   "homepage": "http://csvxjs.lcluber.com",
@@ -38,9 +38,9 @@
     "morgan": "1.9.0",
     "pug": "2.0.3",
     "serve-favicon": "2.5.0",
-    "@lcluber/weejs": "0.2.1",
-    "@lcluber/chjs": "0.1.0",
-    "@lcluber/mouettejs": "0.2.8"
+    "@lcluber/weejs": "0.2.7",
+    "@lcluber/chjs": "0.1.1",
+    "@lcluber/mouettejs": "0.3.0"
   },
   "devDependencies": {
     "@babel/core": "7.2.2",
