@@ -1,3 +1,7 @@
+Version 0.1.11 (April 10th 2020)
+-----------------------------
+ * Fixed csv export with custom labels on Firefox
+
 Version 0.1.10 (April 10th 2019)
 -----------------------------
  * Fixed csv export with better filename checking
