@@ -61,7 +61,7 @@ class Export {
         }
     }
     static download(table, filename) {
-        //let encodedUri = encodeURI(table);
+        table = encodeURI(table); //encodeURIComponent
         let link = Dom.addHTMLElement(document.body, 'a', { href: table, download: filename + '.csv' });
         link.click();
         document.body.removeChild(link);
@@ -82,7 +82,7 @@ class Export {
             }
             table += this.createRow(parsedRow);
         }
-        return encodeURIComponent(table);
+        return table;
     }
     static createLabels(data) {
         let labels = Is.json(data[0]) || data[0];

@@ -1007,7 +1007,8 @@ var CSVx = (function (exports) {
     };
 
     Export.download = function download(table, filename) {
-      //let encodedUri = encodeURI(table);
+      table = encodeURI(table); //encodeURIComponent
+
       var link = Dom.addHTMLElement(document.body, 'a', {
         href: table,
         download: filename + '.csv'
@@ -1050,7 +1051,7 @@ var CSVx = (function (exports) {
         table += this.createRow(parsedRow);
       }
 
-      return encodeURIComponent(table);
+      return table;
     };
 
     Export.createLabels = function createLabels(data) {
