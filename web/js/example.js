@@ -1,4 +1,4 @@
-
+var customLabels = ['First name', 'Last name', 'Born', 'Died'];
 var array = [
   {
     firstname:'Galileo',
@@ -21,7 +21,7 @@ var array = [
 ];
 var exportButton = Wee.Dom.findById('csv');
 exportButton.addEventListener('click', function() {
-  CSVx.Export.data('scientists',array, {separator:';'});
+  CSVx.Export.data('scientists',array, {separator:';', customLabels: customLabels});
 });
 
 var data = '"Firstname";"Lastname";"Born";"Died"\r\n\
