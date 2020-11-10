@@ -106,8 +106,19 @@ var CSVx = (function (exports) {
     };
 
     _proto.findLevel = function findLevel(name) {
-      for (var _i = 0; _i < LEVELS.length; _i++) {
-        var level = LEVELS[_i];
+      for (var _iterator = LEVELS, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
+        var _ref;
+
+        if (_isArray) {
+          if (_i >= _iterator.length) break;
+          _ref = _iterator[_i++];
+        } else {
+          _i = _iterator.next();
+          if (_i.done) break;
+          _ref = _i.value;
+        }
+
+        var level = _ref;
 
         if (level.name === name) {
           return level;
@@ -160,8 +171,19 @@ var CSVx = (function (exports) {
     };
 
     Logger.findLevel = function findLevel(name) {
-      for (var _i2 = 0; _i2 < LEVELS.length; _i2++) {
-        var level = LEVELS[_i2];
+      for (var _iterator2 = LEVELS, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : _iterator2[Symbol.iterator]();;) {
+        var _ref2;
+
+        if (_isArray2) {
+          if (_i2 >= _iterator2.length) break;
+          _ref2 = _iterator2[_i2++];
+        } else {
+          _i2 = _iterator2.next();
+          if (_i2.done) break;
+          _ref2 = _i2.value;
+        }
+
+        var level = _ref2;
 
         if (level.name === name) {
           return level;
@@ -331,8 +353,19 @@ var CSVx = (function (exports) {
     };
 
     _proto.findLevel = function findLevel(name) {
-      for (var _i = 0; _i < LEVELS$1.length; _i++) {
-        var level = LEVELS$1[_i];
+      for (var _iterator = LEVELS$1, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
+        var _ref;
+
+        if (_isArray) {
+          if (_i >= _iterator.length) break;
+          _ref = _iterator[_i++];
+        } else {
+          _i = _iterator.next();
+          if (_i.done) break;
+          _ref = _i.value;
+        }
+
+        var level = _ref;
 
         if (level.name === name) {
           return level;
@@ -385,8 +418,19 @@ var CSVx = (function (exports) {
     };
 
     Logger.findLevel = function findLevel(name) {
-      for (var _i2 = 0; _i2 < LEVELS$1.length; _i2++) {
-        var level = LEVELS$1[_i2];
+      for (var _iterator2 = LEVELS$1, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : _iterator2[Symbol.iterator]();;) {
+        var _ref2;
+
+        if (_isArray2) {
+          if (_i2 >= _iterator2.length) break;
+          _ref2 = _iterator2[_i2++];
+        } else {
+          _i2 = _iterator2.next();
+          if (_i2.done) break;
+          _ref2 = _i2.value;
+        }
+
+        var level = _ref2;
 
         if (level.name === name) {
           return level;
@@ -528,8 +572,19 @@ var CSVx = (function (exports) {
     };
 
     _proto.findLevel = function findLevel(name) {
-      for (var _i = 0; _i < LEVELS$2.length; _i++) {
-        var level = LEVELS$2[_i];
+      for (var _iterator = LEVELS$2, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
+        var _ref;
+
+        if (_isArray) {
+          if (_i >= _iterator.length) break;
+          _ref = _iterator[_i++];
+        } else {
+          _i = _iterator.next();
+          if (_i.done) break;
+          _ref = _i.value;
+        }
+
+        var level = _ref;
 
         if (level.name === name) {
           return level;
@@ -582,8 +637,19 @@ var CSVx = (function (exports) {
     };
 
     Logger.findLevel = function findLevel(name) {
-      for (var _i2 = 0; _i2 < LEVELS$2.length; _i2++) {
-        var level = LEVELS$2[_i2];
+      for (var _iterator2 = LEVELS$2, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : _iterator2[Symbol.iterator]();;) {
+        var _ref2;
+
+        if (_isArray2) {
+          if (_i2 >= _iterator2.length) break;
+          _ref2 = _iterator2[_i2++];
+        } else {
+          _i2 = _iterator2.next();
+          if (_i2.done) break;
+          _ref2 = _i2.value;
+        }
+
+        var level = _ref2;
 
         if (level.name === name) {
           return level;
@@ -1008,13 +1074,18 @@ var CSVx = (function (exports) {
 
     Export.download = function download(table, filename) {
       //let encodedUri = encodeURI(table);
-      var link = Dom.addHTMLElement(document.body, 'a', {
-        href: table,
-        download: filename + '.csv'
-      });
-      link.click();
-      document.body.removeChild(link);
-      this.log.info(filename + ' downloading');
+      if (window.navigator.msSaveOrOpenBlob) {
+        // IE11
+        window.navigator.msSaveOrOpenBlob(table, filename);
+      } else {
+        var link = Dom.addHTMLElement(document.body, 'a', {
+          href: table,
+          download: filename + '.csv'
+        });
+        link.click();
+        document.body.removeChild(link);
+        this.log.info(filename + ' downloading');
+      }
     };
 
     Export.createTable = function createTable(data) {

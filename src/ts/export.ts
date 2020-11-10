@@ -55,10 +55,15 @@ export class Export {
 
   private static download(table:string, filename: string): void {
     //let encodedUri = encodeURI(table);
-    let link = Dom.addHTMLElement(document.body, 'a', {href:table,download:filename+'.csv'})
-    link.click();
-    document.body.removeChild(link);
-    this.log.info(filename + ' downloading');
+    if(window.navigator.msSaveOrOpenBlob) {
+      // IE11
+      window.navigator.msSaveOrOpenBlob(table, filename);
+    } else {
+      let link = Dom.addHTMLElement(document.body, 'a', {href:table,download:filename+'.csv'})
+      link.click();
+      document.body.removeChild(link);
+      this.log.info(filename + ' downloading');
+    }
   }
 
   private static createTable( data: Object[]|string[] ): string {
@@ -99,6 +104,7 @@ export class Export {
   }
 
   private static createRow(row: string): string {
+    console.log(row.slice(0, -1) + this.options.CRLF);
     return row.slice(0, -1) + this.options.CRLF;
   }
 

@@ -62,10 +62,16 @@ class Export {
     }
     static download(table, filename) {
         //let encodedUri = encodeURI(table);
-        let link = Dom.addHTMLElement(document.body, 'a', { href: table, download: filename + '.csv' });
-        link.click();
-        document.body.removeChild(link);
-        this.log.info(filename + ' downloading');
+        if (window.navigator.msSaveOrOpenBlob) {
+            // IE11
+            window.navigator.msSaveOrOpenBlob(table, filename);
+        }
+        else {
+            let link = Dom.addHTMLElement(document.body, 'a', { href: table, download: filename + '.csv' });
+            link.click();
+            document.body.removeChild(link);
+            this.log.info(filename + ' downloading');
+        }
     }
     static createTable(data) {
         let table = '';
@@ -102,6 +108,7 @@ class Export {
         return this.createRow(parsedRow);
     }
     static createRow(row) {
+        console.log(row.slice(0, -1) + this.options.CRLF);
         return row.slice(0, -1) + this.options.CRLF;
     }
     static createField(content) {
