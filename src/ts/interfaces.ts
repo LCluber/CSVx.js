@@ -6,8 +6,8 @@ export interface Options {
   quote: string;
   separator: string;
   CRLF: string;
-  customLabels: string[];
-  [key: string]: string[]|String|boolean;
+  customLabels: { [key: string]: string }|null;
+  [key: string]: string[]|String|boolean|{ [key: string]: string }|null;
 }
 
 export interface CSS {
@@ -15,3 +15,5 @@ export interface CSS {
   th: string;
   [key: string]: String;
 }
+
+export interface Data { [key: string]: number|string }

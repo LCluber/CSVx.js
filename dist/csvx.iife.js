@@ -510,175 +510,6 @@ var CSVx = (function (exports) {
 
   /** MIT License
   * 
-  * Copyright (c) 2015 Ludovic CLUBER 
-  * 
-  * Permission is hereby granted, free of charge, to any person obtaining a copy
-  * of this software and associated documentation files (the "Software"), to deal
-  * in the Software without restriction, including without limitation the rights
-  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-  * copies of the Software, and to permit persons to whom the Software is
-  * furnished to do so, subject to the following conditions:
-  *
-  * The above copyright notice and this permission notice shall be included in all
-  * copies or substantial portions of the Software.
-  *
-  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-  * SOFTWARE.
-  *
-  * http://mouettejs.lcluber.com
-  */
-  var LEVELS$2 = [{
-    id: 1,
-    name: 'info'
-  }, {
-    id: 2,
-    name: 'trace'
-  }, {
-    id: 3,
-    name: 'warn'
-  }, {
-    id: 4,
-    name: 'error'
-  }, {
-    id: 99,
-    name: 'off'
-  }];
-
-  var Message$2 =
-  /*#__PURE__*/
-  function () {
-    function Message(levelName, content) {
-      this.setLevel(levelName);
-      this.content = content;
-    }
-
-    var _proto = Message.prototype;
-
-    _proto.setLevel = function setLevel(name) {
-      this.level = this.findLevel(name);
-    };
-
-    _proto.getLevelId = function getLevelId() {
-      return this.level.id;
-    };
-
-    _proto.display = function display() {
-      console[this.level.name](this.content);
-    };
-
-    _proto.findLevel = function findLevel(name) {
-      for (var _iterator = LEVELS$2, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
-        var _ref;
-
-        if (_isArray) {
-          if (_i >= _iterator.length) break;
-          _ref = _iterator[_i++];
-        } else {
-          _i = _iterator.next();
-          if (_i.done) break;
-          _ref = _i.value;
-        }
-
-        var level = _ref;
-
-        if (level.name === name) {
-          return level;
-        }
-      }
-
-      return this.level ? this.level : LEVELS$2[0];
-    };
-
-    return Message;
-  }();
-
-  var Logger$2 =
-  /*#__PURE__*/
-  function () {
-    function Logger() {}
-
-    Logger.info = function info(text) {
-      Logger.log('info', text);
-    };
-
-    Logger.trace = function trace(text) {
-      Logger.log('trace', text);
-    };
-
-    Logger.time = function time(text) {
-      Logger.log('time', text);
-    };
-
-    Logger.warn = function warn(text) {
-      Logger.log('warn', text);
-    };
-
-    Logger.error = function error(text) {
-      Logger.log('error', text);
-    };
-
-    Logger.log = function log(levelName, content) {
-      Logger.addMessage(levelName, content);
-      var message = this.messages[this.nbMessages - 1];
-
-      if (this._level.id <= message.getLevelId()) {
-        message.display();
-      }
-    };
-
-    Logger.addMessage = function addMessage(levelName, content) {
-      this.messages.push(new Message$2(levelName, content));
-      this.nbMessages++;
-    };
-
-    Logger.findLevel = function findLevel(name) {
-      for (var _iterator2 = LEVELS$2, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : _iterator2[Symbol.iterator]();;) {
-        var _ref2;
-
-        if (_isArray2) {
-          if (_i2 >= _iterator2.length) break;
-          _ref2 = _iterator2[_i2++];
-        } else {
-          _i2 = _iterator2.next();
-          if (_i2.done) break;
-          _ref2 = _i2.value;
-        }
-
-        var level = _ref2;
-
-        if (level.name === name) {
-          return level;
-        }
-      }
-
-      return this._level ? this._level : LEVELS$2[0];
-    };
-
-    _createClass(Logger, [{
-      key: "level",
-      set: function set(name) {
-        Logger._level = Logger.findLevel(name);
-      },
-      get: function get() {
-        return Logger._level.name;
-      }
-    }]);
-
-    return Logger;
-  }();
-
-  Logger$2._level = Logger$2.findLevel(LEVELS$2[0].name);
-  Logger$2.messages = [];
-  Logger$2.nbMessages = 0;
-  Logger$2.target = document.getElementById('Mouette');
-
-  /** MIT License
-  * 
   * Copyright (c) 2018 Ludovic CLUBER 
   * 
   * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -832,147 +663,46 @@ var CSVx = (function (exports) {
   }();
 
   /** MIT License
-  * 
-  * Copyright (c) 2015 Ludovic CLUBER 
-  * 
-  * Permission is hereby granted, free of charge, to any person obtaining a copy
-  * of this software and associated documentation files (the "Software"), to deal
-  * in the Software without restriction, including without limitation the rights
-  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-  * copies of the Software, and to permit persons to whom the Software is
-  * furnished to do so, subject to the following conditions:
-  *
-  * The above copyright notice and this permission notice shall be included in all
-  * copies or substantial portions of the Software.
-  *
-  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-  * SOFTWARE.
-  *
-  * http://mouettejs.lcluber.com
-  */
-  var LEVELS$3 = {
-    info: {
-      id: 1,
-      name: 'info',
-      color: '#28a745'
-    },
-    trace: {
-      id: 2,
-      name: 'trace',
-      color: '#17a2b8'
-    },
-    warn: {
-      id: 3,
-      name: 'warn',
-      color: '#ffc107'
-    },
-    error: {
-      id: 4,
-      name: 'error',
-      color: '#dc3545'
-    },
-    off: {
-      id: 99,
-      name: 'off',
-      color: null
-    }
-  };
-
-  function addZero(value) {
-    return value < 10 ? '0' + value : value;
+   *
+   * Copyright (c) 2009 Ludovic CLUBER
+   *
+   * Permission is hereby granted, free of charge, to any person obtaining a copy
+   * of this software and associated documentation files (the "Software"), to deal
+   * in the Software without restriction, including without limitation the rights
+   * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+   * copies of the Software, and to permit persons to whom the Software is
+   * furnished to do so, subject to the following conditions:
+   *
+   * The above copyright notice and this permission notice (including the next
+   * paragraph) shall be included in all copies or substantial portions of the
+   * Software.
+   *
+   * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+   * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+   * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+   * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+   * SOFTWARE.
+   *
+   * https://github.com/LCluber/Ch.js
+   */
+  function isObject(object) {
+    return object !== null && typeof object === "object" && !isArray(object);
   }
 
-  function formatDate() {
-    var now = new Date();
-    var date = [addZero(now.getMonth() + 1), addZero(now.getDate()), now.getFullYear().toString().substr(-2)];
-    var time = [addZero(now.getHours()), addZero(now.getMinutes()), addZero(now.getSeconds())];
-    return date.join("/") + " " + time.join(":");
+  function isArray(array) {
+    return array !== null && array.constructor === Array;
   }
 
-  var Message$3 =
+  var Export =
   /*#__PURE__*/
   function () {
-    function Message(level, content) {
-      this.id = level.id;
-      this.name = level.name;
-      this.color = level.color;
-      this.content = content;
-      this.date = formatDate();
-    }
+    function Export() {}
 
-    var _proto = Message.prototype;
-
-    _proto.display = function display(groupName) {
-      console[this.name]('%c[' + groupName + '] ' + this.date + ' : ', 'color:' + this.color + ';', this.content);
-    };
-
-    return Message;
-  }();
-
-  var Group =
-  /*#__PURE__*/
-  function () {
-    function Group(name) {
-      this.messages = [];
-      this.name = name;
-      this.messages = [];
-      this._level = LEVELS$3.info;
-    }
-
-    var _proto2 = Group.prototype;
-
-    _proto2.info = function info(message) {
-      this.log(LEVELS$3.info, message);
-    };
-
-    _proto2.trace = function trace(message) {
-      this.log(LEVELS$3.trace, message);
-    };
-
-    _proto2.warn = function warn(message) {
-      this.log(LEVELS$3.warn, message);
-    };
-
-    _proto2.error = function error(message) {
-      this.log(LEVELS$3.error, message);
-    };
-
-    _proto2.log = function log(level, messageContent) {
-      var message = new Message$3(level, messageContent);
-      this.messages.push(message);
-
-      if (this._level.id <= message.id) {
-        message.display(this.name);
-      }
-    };
-
-    _createClass(Group, [{
-      key: "level",
-      set: function set(name) {
-        this._level = LEVELS$3.hasOwnProperty(name) ? LEVELS$3[name] : this._level;
-      },
-      get: function get() {
-        return this._level.name;
-      }
-    }]);
-
-    return Group;
-  }();
-
-  var Logger$3 =
-  /*#__PURE__*/
-  function () {
-    function Logger() {}
-
-    Logger.setLevel = function setLevel(name) {
-      Logger.level = LEVELS$3.hasOwnProperty(name) ? LEVELS$3[name] : Logger.level;
-
-      for (var _iterator = Logger.groups, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
+    Export.data = function data(filename, _data, options) {
+      // check data consistency
+      for (var _iterator = _data, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
         var _ref;
 
         if (_isArray) {
@@ -984,58 +714,11 @@ var CSVx = (function (exports) {
           _ref = _i.value;
         }
 
-        var group = _ref;
-        group.level = Logger.level.name;
-      }
-    };
+        var row = _ref;
 
-    Logger.getLevel = function getLevel() {
-      return Logger.level.name;
-    };
-
-    Logger.getGroup = function getGroup(name) {
-      for (var _iterator2 = Logger.groups, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : _iterator2[Symbol.iterator]();;) {
-        var _ref2;
-
-        if (_isArray2) {
-          if (_i2 >= _iterator2.length) break;
-          _ref2 = _iterator2[_i2++];
-        } else {
-          _i2 = _iterator2.next();
-          if (_i2.done) break;
-          _ref2 = _i2.value;
+        if (!isObject(row)) {
+          return false;
         }
-
-        var group = _ref2;
-
-        if (group.name === name) {
-          return group;
-        }
-      }
-
-      return null;
-    };
-
-    Logger.addGroup = function addGroup(name) {
-      var group = new Group(name);
-      Logger.groups.push(group);
-      return group;
-    };
-
-    return Logger;
-  }();
-
-  Logger$3.level = LEVELS$3.info;
-  Logger$3.groups = [];
-
-  var Export =
-  /*#__PURE__*/
-  function () {
-    function Export() {}
-
-    Export.data = function data(filename, _data, options) {
-      if (!Is.object(_data[0]) && !Is.json(_data[0])) {
-        return false;
       }
 
       if (!filename) {
@@ -1047,19 +730,21 @@ var CSVx = (function (exports) {
       }
 
       var table = 'data:' + this.options.data + ';charset=' + this.options.charset + ",\uFEFF";
+      var labels = [];
 
-      if (this.options.labels) {
-        if (this.options.customLabels.length > 0) {
-          table += this.createCustomLabels(this.options.customLabels);
-        } else {
-          table += this.createLabels(_data);
-        }
-
-        this.log.info(filename + ' labels ready');
+      if (!this.options.customLabels) {
+        labels = this.createLabels(_data);
+      } else {
+        labels = this.createCustomLabels(this.options.customLabels);
       }
 
-      table += this.createTable(_data);
-      this.log.info(filename + ' table ready');
+      if (this.options.labels) {
+        table += this.createLabelsRow(labels); // this.log.info(filename + ' labels ready');
+      }
+
+      table += this.createTable(_data); // console.log('table', table);
+      // this.log.info(filename + ' table ready');
+
       this.download(table, filename);
       return true;
     };
@@ -1083,64 +768,14 @@ var CSVx = (function (exports) {
           download: filename + '.csv'
         });
         link.click();
-        document.body.removeChild(link);
-        this.log.info(filename + ' downloading');
+        document.body.removeChild(link); // this.log.info(filename + ' downloading');
       }
     };
 
     Export.createTable = function createTable(data) {
       var table = '';
 
-      for (var _iterator = data, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
-        var _ref;
-
-        if (_isArray) {
-          if (_i >= _iterator.length) break;
-          _ref = _iterator[_i++];
-        } else {
-          _i = _iterator.next();
-          if (_i.done) break;
-          _ref = _i.value;
-        }
-
-        var row = _ref;
-        var obj = Is.json(row) || row;
-
-        if (!Is.object(obj)) {
-          return table;
-        }
-
-        var parsedRow = '';
-
-        for (var property in obj) {
-          if (obj.hasOwnProperty(property)) {
-            parsedRow += this.createField(obj[property]);
-          }
-        }
-
-        table += this.createRow(parsedRow);
-      }
-
-      return encodeURIComponent(table);
-    };
-
-    Export.createLabels = function createLabels(data) {
-      var labels = Is.json(data[0]) || data[0];
-      var parsedRow = '';
-
-      for (var label in labels) {
-        if (labels.hasOwnProperty(label)) {
-          parsedRow += this.createField(label);
-        }
-      }
-
-      return this.createRow(parsedRow);
-    };
-
-    Export.createCustomLabels = function createCustomLabels(customLabels) {
-      var parsedRow = '';
-
-      for (var _iterator2 = customLabels, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : _iterator2[Symbol.iterator]();;) {
+      for (var _iterator2 = data, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : _iterator2[Symbol.iterator]();;) {
         var _ref2;
 
         if (_isArray2) {
@@ -1152,7 +787,94 @@ var CSVx = (function (exports) {
           _ref2 = _i2.value;
         }
 
-        var label = _ref2;
+        var row = _ref2;
+        var parsedRow = '';
+
+        for (var property in this.options.customLabels) {
+          parsedRow += this.createField(row[property] || '');
+        }
+
+        table += this.createRow(parsedRow);
+      }
+
+      return table;
+    };
+
+    Export.createLabels = function createLabels(data) {
+      var params = [];
+
+      for (var _iterator3 = data, _isArray3 = Array.isArray(_iterator3), _i3 = 0, _iterator3 = _isArray3 ? _iterator3 : _iterator3[Symbol.iterator]();;) {
+        var _ref3;
+
+        if (_isArray3) {
+          if (_i3 >= _iterator3.length) break;
+          _ref3 = _iterator3[_i3++];
+        } else {
+          _i3 = _iterator3.next();
+          if (_i3.done) break;
+          _ref3 = _i3.value;
+        }
+
+        var row = _ref3;
+        var i = 0;
+
+        var _loop = function _loop(property) {
+          if (row.hasOwnProperty(property)) {
+            var newProperty = params.find(function (value) {
+              return value === property;
+            });
+
+            if (!newProperty) {
+              params.splice(i, 0, property);
+            }
+
+            i++;
+          }
+        };
+
+        for (var property in row) {
+          _loop(property);
+        }
+      }
+
+      this.options.customLabels = {};
+
+      for (var _i4 = 0, _params = params; _i4 < _params.length; _i4++) {
+        var param = _params[_i4];
+        this.options.customLabels[param] = param;
+      }
+
+      return params;
+    };
+
+    Export.createCustomLabels = function createCustomLabels(customLabels) {
+      var params = [];
+
+      for (var property in customLabels) {
+        if (customLabels.hasOwnProperty(property)) {
+          params.push(customLabels[property]);
+        }
+      }
+
+      return params;
+    };
+
+    Export.createLabelsRow = function createLabelsRow(labels) {
+      var parsedRow = '';
+
+      for (var _iterator4 = labels, _isArray4 = Array.isArray(_iterator4), _i5 = 0, _iterator4 = _isArray4 ? _iterator4 : _iterator4[Symbol.iterator]();;) {
+        var _ref4;
+
+        if (_isArray4) {
+          if (_i5 >= _iterator4.length) break;
+          _ref4 = _iterator4[_i5++];
+        } else {
+          _i5 = _iterator4.next();
+          if (_i5.done) break;
+          _ref4 = _i5.value;
+        }
+
+        var label = _ref4;
         parsedRow += this.createField(label);
       }
 
@@ -1160,6 +882,7 @@ var CSVx = (function (exports) {
     };
 
     Export.createRow = function createRow(row) {
+      // console.log(row.slice(0, -1) + this.options.CRLF);
       return row.slice(0, -1) + this.options.CRLF;
     };
 
@@ -1168,8 +891,8 @@ var CSVx = (function (exports) {
     };
 
     return Export;
-  }();
-  Export.log = Logger$3.addGroup('CSVx Exporter'); // default option values
+  }(); // static log = Logger.addGroup('CSVx Exporter');
+  // default option values
 
   Export.options = {
     data: 'text/csv',
@@ -1178,7 +901,7 @@ var CSVx = (function (exports) {
     quote: '"',
     separator: ',',
     CRLF: '\r\n',
-    customLabels: []
+    customLabels: null
   };
 
   var Convert =
@@ -1206,7 +929,7 @@ var CSVx = (function (exports) {
       var rows = data.trim().split(this.options.CRLF).filter(Boolean);
 
       if (!rows.length) {
-        this.log.warn(this.options.CRLF + ' CRLF not found');
+        // this.log.warn(this.options.CRLF + ' CRLF not found');
         return false;
       }
 
@@ -1286,8 +1009,8 @@ var CSVx = (function (exports) {
     };
 
     return Convert;
-  }();
-  Convert.log = Logger$3.addGroup('CSVx Converter'); // static html: string = null;
+  }(); // static log = Logger.addGroup('CSVx Converter');
+  // static html: string = null;
   // default option values
 
   Convert.options = {

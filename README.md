@@ -8,10 +8,17 @@ The main purpose of this library is to provide an easy way to export your data a
 
 ## Installation
 
+### npm
+
 ```bash
-$ npm install @lcluber/csvxjs
+$ npm i @lcluber/csvxjs
 ```
-Or download it **[here](http://csvxjs.lcluber.com/#download)**.
+
+### yarn
+
+```bash
+$ yarn add @lcluber/csvxjs
+```
 
 ## Usage
 
@@ -29,27 +36,34 @@ import { Export, Convert } from '@lcluber/csvxjs';
 let array = [
   {
     firstname:'Galileo',
-    lastname:'Galilei',
+    lastname:'Galiléi',
     born:1564,
     died:1642
   },
   {
     firstname:'Nikola',
     lastname:'Tesla',
+    city:'Smiljan',
     born:1856,
     died:1943
   },
   {
     firstname:'Albert',
-    lastname:'Einstein',
     born:1879,
+    lastname:'Einstein',
     died:1955
   }
 ];
-
+let customLabels = {
+  firstname: 'First name',
+  lastname: 'Last name', 
+  city: 'City',
+  born: 'Born',
+  died: 'Died'
+};
 let exportButton = document.getElementById('csv');
 exportButton.addEventListener('click', function() {
-  Export.data('scientists',array,{separator: ';'});// ; separator for excel friendly imports
+  Export.data('scientists',array,{separator: ';', customLabels: customLabels});// ; separator for excel friendly imports
 });
 
 // Convert CSV data to HTML table
@@ -73,29 +87,36 @@ document.getElementById("table").innerHTML = Convert.table(data,{separator: ';'}
 
 // Convert an array to CSV file
 var array = [
-  {
+ {
     firstname:'Galileo',
-    lastname:'Galilei',
+    lastname:'Galiléi',
     born:1564,
     died:1642
   },
   {
     firstname:'Nikola',
     lastname:'Tesla',
+    city:'Smiljan',
     born:1856,
     died:1943
   },
   {
     firstname:'Albert',
-    lastname:'Einstein',
     born:1879,
+    lastname:'Einstein',
     died:1955
   }
 ];
-
+var customLabels = {
+  firstname: 'First name',
+  lastname: 'Last name', 
+  city: 'City',
+  born: 'Born',
+  died: 'Died'
+};
 var exportButton = document.getElementById('csv');
 exportButton.addEventListener('click', function() {
-  CSVx.Export.data('scientists',array,{separator: ';'});// ; separator for excel friendly imports
+  CSVx.Export.data('scientists',array,{separator: ';', customLabels: customLabels});// ; separator for excel friendly imports
 });
 
 // Convert CSV data to HTML table
@@ -110,6 +131,8 @@ document.getElementById("table").innerHTML = CSVx.Convert.table(data,{separator:
 ### Options
 
 ```javascript
+interface Data { [key: string]: number|string }[]
+
 interface Options {
   data?: string; // default : 'text/csv'
   charset?: string; // default : 'utf-8'
@@ -117,7 +140,7 @@ interface Options {
   quote?: string; // default : '"'
   separator?: string; // default : ','
   CRLF?: string; // default : '\r\n'
-  customLabels?: string[]; // default : []
+  customLabels: { [key: string]: string }; // default : {}
 }
 
 interface CSS {
@@ -125,18 +148,6 @@ interface CSS {
   th?: string; // default : ''
 }
 ```
-
-## Demo
-
-See a basic example **[here](http://csvxjs.lcluber.com/#example)**.
-
-## API Reference
-
-Read the documentation **[here](http://csvxjs.lcluber.com/doc/)**.
-
-## Tests
-
-No tests to run yet
 
 ## Contributors
 

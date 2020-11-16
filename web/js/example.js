@@ -1,4 +1,4 @@
-
+var customLabels = ['First name', 'Last name', 'city', 'Born', 'Died'];
 var array = [
   {
     firstname:'Galileo',
@@ -9,20 +9,27 @@ var array = [
   {
     firstname:'Nikola',
     lastname:'Tesla',
+    city:'Smiljan',
     born:1856,
     died:1943
   },
   {
     firstname:'Albert',
-    lastname:'Einstein',
     born:1879,
+    lastname:'Einstein',
     died:1955
   }
 ];
-var customLabels = ['First name', 'Last name', 'Born', 'Died'];
+var customLabels = {
+  firstname: 'First name',
+  lastname: 'Last name', 
+  city: 'City',
+  born: 'Born',
+  died: 'Died'
+};
 var exportButton = Wee.Dom.findById('csv');
 exportButton.addEventListener('click', function() {
-  CSVx.Export.data('scientists',array, {separator:';', customLabels: customLabels});
+  CSVx.Export.data('scientists',array, {separator:';', customLabels: customLabels });
 });
 
 var data = '"Firstname";"Lastname";"Born";"Died"\r\n\

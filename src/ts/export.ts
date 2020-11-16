@@ -1,11 +1,11 @@
-import { Options }  from './interfaces';
-import { Dom }      from '@lcluber/weejs';
-import { Is }       from '@lcluber/chjs';
-import { Logger }   from '@lcluber/mouettejs';
+import { Options, Data } from './interfaces';
+import { Dom } from '@lcluber/weejs';
+import { isObject } from '@lcluber/chjs';
+// import { Logger }   from '@lcluber/mouettejs';
 
 export class Export {
 
-  static log = Logger.addGroup('CSVx Exporter');
+  // static log = Logger.addGroup('CSVx Exporter');
   // default option values
   static options: Options = {
     data: 'text/csv',
@@ -14,16 +14,21 @@ export class Export {
     quote: '"',
     separator: ',',
     CRLF : '\r\n',
-    customLabels: []
+    customLabels: null
   }
 
   public static data( filename: string,
-                      data: Object[]|string[],
-                      options?: Partial<Options>): boolean {
-
-    if (!Is.object(data[0]) && !Is.json(data[0])) {
-      return false;
+                      data: Data[],
+                      options?: Partial<Options>
+                    ): boolean {
+    
+    // check data consistency
+    for (let row of data) {                    
+      if (!isObject(row)) {
+        return false;
+      }
     }
+
     if (!filename) {
       filename = 'export';
     }
@@ -31,16 +36,19 @@ export class Export {
       this.setOptions(options);
     }
     let table: string = 'data:' + this.options.data + ';charset=' + this.options.charset + ',\uFEFF';
+    let labels: string[] = [];
+    if (!this.options.customLabels) {
+      labels = this.createLabels(data);
+    } else {
+      labels = this.createCustomLabels(this.options.customLabels);
+    }
     if(this.options.labels) {
-      if (this.options.customLabels.length > 0) {
-        table += this.createCustomLabels(this.options.customLabels);
-      } else {
-        table += this.createLabels(data);
-      }
-      this.log.info(filename + ' labels ready');
+      table += this.createLabelsRow(labels);
+      // this.log.info(filename + ' labels ready');
     }
     table += this.createTable(data);
-    this.log.info(filename + ' table ready');
+    // console.log('table', table);
+    // this.log.info(filename + ' table ready');
     this.download(table, filename);
     return true;
   }
@@ -62,53 +70,67 @@ export class Export {
       let link = Dom.addHTMLElement(document.body, 'a', {href:table,download:filename+'.csv'})
       link.click();
       document.body.removeChild(link);
-      this.log.info(filename + ' downloading');
+      // this.log.info(filename + ' downloading');
     }
   }
 
-  private static createTable( data: Object[]|string[] ): string {
+  private static createTable( data: Data[] ): string {
     let table: string = '';
-    for (const row of data) {
-      let obj:any = Is.json(row)||row;
-      if (!Is.object(obj)){
-        return table;
-      }
+    for (let row of data) {
       let parsedRow: string = '';
-      for(const property in obj) {
-        if (obj.hasOwnProperty(property)) {
-          parsedRow += this.createField(obj[property]);
-        }
+      for (let property in this.options.customLabels) {
+        parsedRow += this.createField(row[property] || '');
       }
       table += this.createRow(parsedRow);
     }
-    return encodeURIComponent(table);
+    return table;
   }
 
-  private static createLabels( data: Object[]|string[] ): string {
-    let labels:Object = Is.json(data[0])||data[0];
-    let parsedRow: string = '';
-    for(const label in labels) {
-      if (labels.hasOwnProperty(label)) {
-        parsedRow += this.createField(label);
+  private static createLabels (data: Data[]): string[] {
+    let params: string[] = [];
+    for (let row of data) {
+      let i = 0;
+      for (let property in row) {
+        if (row.hasOwnProperty(property)) {
+          const newProperty = params.find(value => value === property);
+          if (!newProperty) {
+            params.splice(i, 0, property);
+          }
+          i++;
+        }
       }
     }
-    return this.createRow(parsedRow);
+    this.options.customLabels = {};
+    for (let param of params) {
+      this.options.customLabels[param] = param;
+    }
+    return params;
   }
 
-  private static createCustomLabels(customLabels: string[]): string {
+  private static createCustomLabels (customLabels: { [key: string]: string }): string[] {
+    let params: string[] = [];
+    for (let property in customLabels) {
+      if (customLabels.hasOwnProperty(property)) {
+        params.push(customLabels[property]);
+      }
+    }
+    return params;
+  }
+
+  private static createLabelsRow(labels: string[]): string {
     let parsedRow: string = '';
-    for(const label of customLabels) {
+    for(let label of labels) {
       parsedRow += this.createField(label);
     }
     return this.createRow(parsedRow);
   }
 
   private static createRow(row: string): string {
-    console.log(row.slice(0, -1) + this.options.CRLF);
+    // console.log(row.slice(0, -1) + this.options.CRLF);
     return row.slice(0, -1) + this.options.CRLF;
   }
 
-  private static createField(content:string): string {
+  private static createField(content:string|number): string {
     return this.options.quote + content + this.options.quote + this.options.separator;
   }
 
