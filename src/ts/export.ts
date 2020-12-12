@@ -1,7 +1,5 @@
 import { Options, Data } from './interfaces';
-import { Dom } from '@lcluber/weejs';
 import { isObject } from '@lcluber/chjs';
-// import { Logger }   from '@lcluber/mouettejs';
 
 export class Export {
 
@@ -35,7 +33,7 @@ export class Export {
     if (options) {
       this.setOptions(options);
     }
-    let table: string = 'data:' + this.options.data + ';charset=' + this.options.charset + ',\uFEFF';
+    let table: string = '';
     let labels: string[] = [];
     if (!this.options.customLabels) {
       labels = this.createLabels(data);
@@ -44,11 +42,9 @@ export class Export {
     }
     if(this.options.labels) {
       table += this.createLabelsRow(labels);
-      // this.log.info(filename + ' labels ready');
     }
     table += this.createTable(data);
     // console.log('table', table);
-    // this.log.info(filename + ' table ready');
     this.download(table, filename);
     return true;
   }
@@ -62,15 +58,17 @@ export class Export {
   }
 
   private static download(table:string, filename: string): void {
-    //let encodedUri = encodeURI(table);
+    let encodedTable = `data:${this.options.data};charset=${this.options.charset},${escape(table)}`;
     if(window.navigator.msSaveOrOpenBlob) {
       // IE11
-      window.navigator.msSaveOrOpenBlob(table, filename);
+      window.navigator.msSaveOrOpenBlob(encodedTable, filename);
     } else {
-      let link = Dom.addHTMLElement(document.body, 'a', {href:table,download:filename+'.csv'})
+      let link = document.createElement('a');
+      link.setAttribute('href', encodedTable);
+      link.setAttribute('download', filename+'.csv');
+      document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      // this.log.info(filename + ' downloading');
     }
   }
 
@@ -79,7 +77,9 @@ export class Export {
     for (let row of data) {
       let parsedRow: string = '';
       for (let property in this.options.customLabels) {
-        parsedRow += this.createField(row[property] || '');
+        if (this.options.customLabels.hasOwnProperty(property)) {
+          parsedRow += this.createField(row[property] ?? '');
+        }
       }
       table += this.createRow(parsedRow);
     }
@@ -127,10 +127,12 @@ export class Export {
 
   private static createRow(row: string): string {
     // console.log(row.slice(0, -1) + this.options.CRLF);
+    // console.log('row', row);
     return row.slice(0, -1) + this.options.CRLF;
   }
 
   private static createField(content:string|number): string {
+    // console.log('field', content);
     return this.options.quote + content + this.options.quote + this.options.separator;
   }
 

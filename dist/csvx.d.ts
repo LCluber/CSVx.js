@@ -25,11 +25,11 @@
 
 export declare type CellTypes = 'td' | 'th';
 export declare class Convert {
-    static options: Options;
+    static options: Partial<Options>;
     static css: CSS;
-    static setOptions(options: Options): void;
-    static setCSS(css: CSS): void;
-    static array(data: string, options?: Options, css?: CSS): Array<Array<string>> | false;
+    static setOptions(options: Partial<Options>): void;
+    static setCSS(css: Partial<CSS>): void;
+    static array(data: string, options?: Partial<Options>, css?: Partial<CSS>): Array<Array<string>> | false;
     static table(data: string, options?: Options, css?: CSS): string | false;
     private static createTr;
     private static setObject;
@@ -39,25 +39,35 @@ export declare class Convert {
 
 export declare class Export {
     static options: Options;
-    static data(filename: string, data: Array<Object> | Array<string>, options?: Options): boolean;
-    static setOptions(options: Options): void;
+    static data(filename: string, data: Data[], options?: Partial<Options>): boolean;
+    static setOptions(options: Partial<Options>): void;
     private static download;
     private static createTable;
     private static createLabels;
     private static createCustomLabels;
+    private static createLabelsRow;
     private static createRow;
     private static createField;
 }
 export interface Options {
-    data?: string;
-    charset?: string;
-    labels?: boolean;
-    quote?: string;
-    separator?: string;
-    CRLF?: string;
-    customLabels?: string[];
+    data: string;
+    charset: string;
+    labels: boolean;
+    quote: string;
+    separator: string;
+    CRLF: string;
+    customLabels: {
+        [key: string]: string;
+    } | null;
+    [key: string]: string[] | String | boolean | {
+        [key: string]: string;
+    } | null;
 }
 export interface CSS {
-    table?: string;
-    th?: string;
+    table: string;
+    th: string;
+    [key: string]: String;
+}
+export interface Data {
+    [key: string]: number | string;
 }

@@ -1,26 +1,32 @@
+Version 0.2.1 (December 12th 2020)
+-----------------------------
+ * Fix declaration file
+ * Lighter library 
+ * Delete Mouette.js and Wee.js devDependencies
+
 Version 0.2.0 (November 17th 2020)
 -----------------------------
- * Added support for array of different objects 
+ * Add support for array of different objects 
 
 Version 0.1.11 (April 10th 2020)
 -----------------------------
- * Fixed csv export with custom labels on Firefox
+ * Fix csv export with custom labels on Firefox
 
 Version 0.1.10 (April 10th 2019)
 -----------------------------
- * Fixed csv export with better filename checking
+ * Fix csv export with better filename checking
 
 Version 0.1.9 (April 09th 2019)
 -----------------------------
- * Fixed csv export with special characters
+ * Fix csv export with special characters
 
 Version 0.1.8 (March 31th 2019)
 -----------------------------
- * Improved typings
+ * Improve typings
 
 Version 0.1.7 (March 13th 2019)
 -----------------------------
- * Added byte order mark U+FEFF at the beginning of the data stream
+ * Add byte order mark U+FEFF at the beginning of the data stream
 
 Version 0.1.6 (March 01st 2019)
 -----------------------------
@@ -28,19 +34,19 @@ Version 0.1.6 (March 01st 2019)
 
 Version 0.1.5 (February 11th 2019)
 -----------------------------
- * Added custom labels option
+ * Add custom labels option
  * array() method of Convert class deletes empty strings
 
 Version 0.1.4 (February 08th 2019)
 -----------------------------
- * Added Convert class to transform CSV data to array or HTML table
+ * Add Convert class to transform CSV data to array or HTML table
 
 Version 0.1.3 (December 23th 2018)
 -----------------------------
- * Added Ch.js dependency
- * Updated Mouette.js dependency to version 0.2.8
- * Updated Wee.js dependency to version 0.2.1
- * Updated README.md
+ * Add Ch.js dependency
+ * Update Mouette.js dependency to version 0.2.8
+ * Update Wee.js dependency to version 0.2.1
+ * Update README.md
 
 Version 0.1.2 (December 07th 2018)
 -----------------------------

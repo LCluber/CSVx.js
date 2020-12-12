@@ -65,7 +65,6 @@ if (environment === 'development')
     port: 35729
   }));
 
-app.use('/doc', route_doc);
 app.use('/', route_root);
 //app.use('/users', users);
 

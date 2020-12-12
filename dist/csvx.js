@@ -1,35 +1,32 @@
 /** MIT License
-* 
-* Copyright (c) 2018 Ludovic CLUBER 
-* 
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in all
-* copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*
-* http://csvxjs.lcluber.com
-*/
-
-import { Dom } from '@lcluber/weejs';
+ *
+ * Copyright (c) 2018 Ludovic CLUBER
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice (including the next
+ * paragraph) shall be included in all copies or substantial portions of the
+ * Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ *
+ * https://github.com/LCluber/CSVx.js
+ */
 import { isObject } from '@lcluber/chjs';
 
-// import { Logger }   from '@lcluber/mouettejs';
 class Export {
     static data(filename, data, options) {
-        // check data consistency
         for (let row of data) {
             if (!isObject(row)) {
                 return false;
@@ -41,7 +38,7 @@ class Export {
         if (options) {
             this.setOptions(options);
         }
-        let table = 'data:' + this.options.data + ';charset=' + this.options.charset + ',\uFEFF';
+        let table = '';
         let labels = [];
         if (!this.options.customLabels) {
             labels = this.createLabels(data);
@@ -51,11 +48,8 @@ class Export {
         }
         if (this.options.labels) {
             table += this.createLabelsRow(labels);
-            // this.log.info(filename + ' labels ready');
         }
         table += this.createTable(data);
-        // console.log('table', table);
-        // this.log.info(filename + ' table ready');
         this.download(table, filename);
         return true;
     }
@@ -67,24 +61,28 @@ class Export {
         }
     }
     static download(table, filename) {
-        //let encodedUri = encodeURI(table);
+        let encodedTable = `data:${this.options.data};charset=${this.options.charset},${escape(table)}`;
         if (window.navigator.msSaveOrOpenBlob) {
-            // IE11
-            window.navigator.msSaveOrOpenBlob(table, filename);
+            window.navigator.msSaveOrOpenBlob(encodedTable, filename);
         }
         else {
-            let link = Dom.addHTMLElement(document.body, 'a', { href: table, download: filename + '.csv' });
+            let link = document.createElement('a');
+            link.setAttribute('href', encodedTable);
+            link.setAttribute('download', filename + '.csv');
+            document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-            // this.log.info(filename + ' downloading');
         }
     }
     static createTable(data) {
+        var _a;
         let table = '';
         for (let row of data) {
             let parsedRow = '';
             for (let property in this.options.customLabels) {
-                parsedRow += this.createField(row[property] || '');
+                if (this.options.customLabels.hasOwnProperty(property)) {
+                    parsedRow += this.createField((_a = row[property]) !== null && _a !== void 0 ? _a : '');
+                }
             }
             table += this.createRow(parsedRow);
         }
@@ -127,15 +125,12 @@ class Export {
         return this.createRow(parsedRow);
     }
     static createRow(row) {
-        // console.log(row.slice(0, -1) + this.options.CRLF);
         return row.slice(0, -1) + this.options.CRLF;
     }
     static createField(content) {
         return this.options.quote + content + this.options.quote + this.options.separator;
     }
 }
-// static log = Logger.addGroup('CSVx Exporter');
-// default option values
 Export.options = {
     data: 'text/csv',
     charset: 'utf-8',
@@ -162,7 +157,6 @@ class Convert {
         }
         let rows = data.trim().split(this.options.CRLF).filter(Boolean);
         if (!rows.length) {
-            // this.log.warn(this.options.CRLF + ' CRLF not found');
             return false;
         }
         let array = [];
@@ -214,12 +208,7 @@ class Convert {
         }
     }
 }
-// static log = Logger.addGroup('CSVx Converter');
-// static html: string = null;
-// default option values
 Convert.options = {
-    // data: 'text/csv',
-    // charset: 'utf-8',
     labels: true,
     quote: '"',
     separator: ',',
@@ -230,4 +219,4 @@ Convert.css = {
     th: ''
 };
 
-export { Export, Convert };
+export { Convert, Export };

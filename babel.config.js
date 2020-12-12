@@ -1,14 +1,35 @@
-const presets = [
-  [
-    "@babel/env",
-    {
-      loose : true
-    }
-  ]
-];
-
-const plugins = [
-  // "@babel/plugin-external-helpers"
-];
-
-module.exports = { presets, plugins };
+module.exports = api => {
+  const isTest = api.env("test");
+  if (isTest) {
+    return {
+      presets: [
+        [
+          "@babel/env",
+          {
+            targets: {
+              node: "current"
+            }
+          }
+        ]
+      ]
+    };
+  } else {
+    return {
+      presets: [
+        [
+          "@babel/env",
+          {
+            debug: true,
+            targets: {
+              ie: 11,
+              browsers: "cover 99.5%",
+              esmodules: false
+            },
+            loose: true
+          }
+        ]
+      ],
+      plugins: []
+    };
+  }
+};

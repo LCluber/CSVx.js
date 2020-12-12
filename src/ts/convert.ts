@@ -1,11 +1,9 @@
 import { Options, CSS }  from './interfaces';
-// import { Logger } from '@lcluber/mouettejs';
 
 export type CellTypes = 'td'|'th';
 
 export class Convert {
 
-  // static log = Logger.addGroup('CSVx Converter');
   // static html: string = null;
   // default option values
   static options: Partial<Options> = {
@@ -41,7 +39,6 @@ export class Convert {
 
     let rows:Array<string> = data.trim().split(<string>this.options.CRLF).filter(Boolean);
     if (!rows.length) {
-      // this.log.warn(this.options.CRLF + ' CRLF not found');
       return false;
     }
 
