@@ -1,5 +1,5 @@
 import { Options, Data } from './interfaces';
-import { isObject } from '@lcluber/chjs';
+import { isObject } from '@dwtechs/checkhard';
 
 export class Export {
 

@@ -1,3 +1,7 @@
+Version 0.2.2 (February 17th 2020)
+-----------------------------
+ * Updated Ch.js to Checkhard.js dependency
+
 Version 0.2.1 (December 12th 2020)
 -----------------------------
  * Fix declaration file

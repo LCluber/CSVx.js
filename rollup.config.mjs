@@ -20,7 +20,7 @@ module.exports = {
   },
   external: [
     "@lcluber/weejs",
-    "@lcluber/chjs"
+    "@dwtechs/checkhard"
   ],
   plugins: [
     progress({

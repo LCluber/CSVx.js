@@ -23,7 +23,7 @@
  *
  * https://github.com/LCluber/CSVx.js
  */
-import { isObject } from '@lcluber/chjs';
+import { isObject } from '@dwtechs/checkhard';
 
 class Export {
     static data(filename, data, options) {
