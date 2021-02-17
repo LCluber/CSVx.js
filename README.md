@@ -1,8 +1,8 @@
-[![License: MIT](https://img.shields.io/npm/l/@lcluber/csvx.svg?color=brightgreen)](https://opensource.org/licenses/MIT)
-[![npm version](https://badge.fury.io/js/%40lcluber%2Fcsvx.svg)](https://www.npmjs.com/package/@lcluber/csvx)
-[![last version release date](https://img.shields.io/github/release-date/LCluber/CSVx.js)](https://www.npmjs.com/package/@lcluber/csvx)
+[![License: MIT](https://img.shields.io/npm/l/@lcluber/csvxjs.svg?color=brightgreen)](https://opensource.org/licenses/MIT)
+[![npm version](https://badge.fury.io/js/%40lcluber%2Fcsvxjs.svg)](https://www.npmjs.com/package/@lcluber/csvxjs)
+[![last version release date](https://img.shields.io/github/release-date/LCluber/CSVx.js)](https://www.npmjs.com/package/@lcluber/csvxjs)
 ![Jest:coverage](https://img.shields.io/badge/Jest:coverage-100%25-brightgreen.svg)
-[![minified size](https://img.shields.io/bundlephobia/min/@lcluber/csvx?color=brightgreen)](https://www.npmjs.com/package/@lcluber/csvx)
+[![minified size](https://img.shields.io/bundlephobia/min/@lcluber/csvxjs?color=brightgreen)](https://www.npmjs.com/package/@lcluber/csvxjs)
 
 
 ## Synopsis
