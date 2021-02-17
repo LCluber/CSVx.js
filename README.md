@@ -1,13 +1,13 @@
-[![License: MIT](https://img.shields.io/npm/l/@dwtechs/csvx.svg?color=brightgreen)](https://opensource.org/licenses/MIT)
-[![npm version](https://badge.fury.io/js/%40dwtechs%2Fcsvx.svg)](https://www.npmjs.com/package/@dwtechs/csvx)
-[![last version release date](https://img.shields.io/github/release-date/DWTechs/CSVx.js)](https://www.npmjs.com/package/@dwtechs/csvx)
+[![License: MIT](https://img.shields.io/npm/l/@lcluber/csvx.svg?color=brightgreen)](https://opensource.org/licenses/MIT)
+[![npm version](https://badge.fury.io/js/%40lcluber%2Fcsvx.svg)](https://www.npmjs.com/package/@lcluber/csvx)
+[![last version release date](https://img.shields.io/github/release-date/LCluber/CSVx.js)](https://www.npmjs.com/package/@lcluber/csvx)
 ![Jest:coverage](https://img.shields.io/badge/Jest:coverage-100%25-brightgreen.svg)
-[![minified size](https://img.shields.io/bundlephobia/min/@dwtechs/csvx?color=brightgreen)](https://www.npmjs.com/package/@dwtechs/csvx)
+[![minified size](https://img.shields.io/bundlephobia/min/@lcluber/csvx?color=brightgreen)](https://www.npmjs.com/package/@lcluber/csvx)
 
 
 ## Synopsis
 
-**[CSVx.js](https://github.com/DWTechs/CSVx.js)** is an open source CSV library written in TypeScript.
+**[CSVx.js](https://github.com/LCluber/CSVx.js)** is an open source CSV library written in TypeScript.
 
 ## Motivation
 
@@ -18,13 +18,13 @@ The main purpose of this library is to provide an easy way to export your data a
 ### npm
 
 ```bash
-$ npm i @dwtechs/csvxjs
+$ npm i @lcluber/csvxjs
 ```
 
 ### yarn
 
 ```bash
-$ yarn add @dwtechs/csvxjs
+$ yarn add @lcluber/csvxjs
 ```
 
 ## Usage
@@ -37,7 +37,7 @@ $ yarn add @dwtechs/csvxjs
 ```
 
 ```javascript
-import { Export, Convert } from '@dwtechs/csvxjs';
+import { Export, Convert } from '@lcluber/csvxjs';
 
 // Convert an array to CSV file
 let array = [
@@ -85,7 +85,7 @@ document.getElementById("table").innerHTML = Convert.table(data,{separator: ';'}
 ### IIFE
 
 ```html
-<script src="node-modules/@dwtechs/csvxjs/dist/csvx.iife.min.js"></script>
+<script src="node-modules/@lcluber/csvxjs/dist/csvx.iife.min.js"></script>
 <button id="csv">Export CSV</button>
 <div id="table"></div>
 ```
@@ -149,7 +149,7 @@ class Convert {
 }
 
 class Export {
-  // Export CSV file
+  // Exort CSV file
   static data(filename: string, data: Data[], options?: Partial<Options>): boolean;
   static setOptions(options: Partial<Options>): void;
 }
@@ -176,7 +176,7 @@ interface CSS {
 ## Contributors
 
 CSVx.js is still in early development and I would be glad to get all the help you can provide for this project.
-To contribute you can clone the project on **[GitHub](https://github.com/DWTechs/CSVx.js)** and See **NOTICE.md** for detailed installation walkthrough.
+To contribute you can clone the project on **[GitHub](https://github.com/LCluber/CSVx.js)** and See **NOTICE.md** for detailed installation walkthrough.
 
 ## License
 
