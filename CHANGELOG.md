@@ -1,4 +1,8 @@
-Version 0.2.2 (February 17th 2020)
+Version 0.2.3 (February 18th 2021)
+-----------------------------
+- Project transferred from LCluber to DWTechs account
+
+Version 0.2.2 (February 17th 2021)
 -----------------------------
  * Updated Ch.js to Checkhard.js dependency
 
