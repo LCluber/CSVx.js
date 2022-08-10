@@ -1,6 +1,6 @@
 ### This project has been transferred to [DWTechs](https://github.com/DWTechs/CSVx.js). 
 
-### Please update your project dependencies to the latest version [on the new repository](https://github.com/DWTechs/CSVx.js).
+### Please update your project dependencies to the latest version [from the new repository](https://github.com/DWTechs/CSVx.js).
 
 
 [![License: MIT](https://img.shields.io/npm/l/@lcluber/csvxjs.svg?color=brightgreen)](https://opensource.org/licenses/MIT)
